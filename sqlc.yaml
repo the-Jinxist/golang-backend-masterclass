@@ -1,0 +1,10 @@
+version: "2"
+sql:
+- schema: "./db/migration/"
+  queries: "./db/queries/"
+  engine: "postgresql"
+  gen:
+    go: 
+      package: "backend_masterclass"
+      out: "./db/sqlc"
+      emit_exact_table_names: true
