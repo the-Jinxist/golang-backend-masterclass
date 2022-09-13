@@ -7,7 +7,6 @@ package backend_masterclass
 
 import (
 	"context"
-	"database/sql"
 )
 
 const createTransfer = `-- name: CreateTransfer :one
@@ -20,8 +19,8 @@ RETURNING id, from_account, to_account, amout, created_at
 `
 
 type CreateTransferParams struct {
-	FromAccount sql.NullInt64
-	ToAccount   sql.NullInt64
+	FromAccount int64
+	ToAccount   int64
 	Amout       int64
 }
 
@@ -66,8 +65,8 @@ OFFSET $4
 `
 
 type GetTransfersParams struct {
-	FromAccount sql.NullInt64
-	ToAccount   sql.NullInt64
+	FromAccount int64
+	ToAccount   int64
 	Limit       int32
 	Offset      int32
 }

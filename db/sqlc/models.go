@@ -5,7 +5,6 @@
 package backend_masterclass
 
 import (
-	"database/sql"
 	"time"
 )
 
@@ -19,7 +18,7 @@ type Accounts struct {
 
 type Entries struct {
 	ID        int64
-	AccountID sql.NullInt64
+	AccountID int64
 	// can be negative or positive
 	Amount    int64
 	CreatedAt time.Time
@@ -27,8 +26,8 @@ type Entries struct {
 
 type Transfers struct {
 	ID          int64
-	FromAccount sql.NullInt64
-	ToAccount   sql.NullInt64
+	FromAccount int64
+	ToAccount   int64
 	// can only be positive
 	Amout     int64
 	CreatedAt time.Time
