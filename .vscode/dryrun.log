@@ -1,4 +1,5 @@
 make --dry-run --always-make --keep-going --print-directory
-
-You have not agreed to the Xcode license agreements, please run 'sudo xcodebuild -license' from within a Terminal window to review and agree to the Xcode license agreements.
-
+make: Entering directory `/Users/neo/go/src/backend-masterclass'
+docker run --name postgres-learning1 -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres
+make: Leaving directory `/Users/neo/go/src/backend-masterclass'
+ 
