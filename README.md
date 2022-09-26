@@ -41,3 +41,7 @@ Learning about Database Transaction: A unit of work with multiple database opera
     - Consistency: DB state must be valid after the transaction is complete.
     - Isolation: Concurrent transactions must not affect each other
     - Durability: All data written be a successful transaction must be recorded in persistent storage.
+
+Day 6: 
+
+Learnt a clean way to implement database transactions.

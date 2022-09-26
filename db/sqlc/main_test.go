@@ -16,15 +16,18 @@ const (
 )
 
 var testQueries *Queries
+var testDB *sql.DB
 
 //The convention is to use TestMain as the entry point of all the tests in the application
 func TestMain(m *testing.M) {
-	conn, err := sql.Open(dbDriver, dbSource)
+	var err error
+
+	testDB, err = sql.Open(dbDriver, dbSource)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 
-	testQueries = New(conn)
+	testQueries = New(testDB)
 
 	//m.Run() will return exit code that will tell us wether the test passes or fails
 	//os.Exit() returns the code to the running program

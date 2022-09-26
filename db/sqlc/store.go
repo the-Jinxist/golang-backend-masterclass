@@ -10,8 +10,8 @@ import (
 type Store struct {
 	//Using a queries struct like this is called composition. It is said to be a better
 	//decision than inheritance
-	*Queries
-	db *sql.DB
+	*Queries //This line exactly is the composition, adding this pointer gives the Store struct the behaviour of the Queries struct. Make sesne pa
+	db       *sql.DB
 }
 
 func NewStore(db *sql.DB) *Store {
@@ -28,7 +28,7 @@ func NewStore(db *sql.DB) *Store {
 func (store *Store) execTx(ctx context.Context, fn func(*Queries) error) error {
 	//[&sql.TxOptions{}] allows us to set a custom isolation level for this
 	//transaction
-	tx, err := store.db.BeginTx(ctx, nil)
+	tx, err := store.db.BeginTx(ctx, &sql.TxOptions{})
 	if err != nil {
 		return nil
 	}
@@ -50,8 +50,8 @@ func (store *Store) execTx(ctx context.Context, fn func(*Queries) error) error {
 
 }
 
-// TransferToParams contains the input parameters of the transfer transaction
-type TransferToParams struct {
+// TransferTxParams contains the input parameters of the transfer transaction
+type TransferTxParams struct {
 	FromAccountID int64 `json:"from_account_id"`
 	ToAccountID   int64 `json:"to_account_id"`
 	Amount        int64 `json:"amount"`
@@ -68,12 +68,47 @@ type TransferTxResult struct {
 
 //This function executes the transfer transaction i.e the transfer of money from
 //one account to another
-func (store *Store) TransferTx(ctx context.Context, arg TransferToParams) (TransferTxResult, error) {
+func (store *Store) TransferTx(ctx context.Context, arg TransferTxParams) (TransferTxResult, error) {
 
 	var result TransferTxResult
 
 	err := store.execTx(ctx, func(q *Queries) error {
-		return nil
+
+		var err error
+
+		result.Transfers, err = q.CreateTransfer(
+			ctx,
+			CreateTransferParams{
+				FromAccount: arg.FromAccountID,
+				ToAccount:   arg.ToAccountID,
+				Amout:       arg.Amount,
+			})
+
+		if err != nil {
+			return err
+		}
+
+		result.FromEntry, err = q.CreateEntry(ctx, CreateEntryParams{
+			AccountID: arg.FromAccountID,
+			Amount:    -arg.Amount,
+		})
+
+		if err != nil {
+			return err
+		}
+
+		result.ToEntry, err = q.CreateEntry(ctx, CreateEntryParams{
+			AccountID: arg.ToAccountID,
+			Amount:    arg.Amount,
+		})
+
+		if err != nil {
+			return err
+		}
+
+		//TODO: UPDATE ACCOUNT BALANCE has to do with locking to prevent database deadlocks
+
+		return err
 	})
 
 	return result, err
