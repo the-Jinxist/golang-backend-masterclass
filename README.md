@@ -44,4 +44,8 @@ Learning about Database Transaction: A unit of work with multiple database opera
 
 Day 6: 
 
-Learnt a clean way to implement database transactions.
+Learnt a clean way to implement database transactions. Normally, you start like a transaction session, get the query object from it using the New() method we created, use the query object to make multiple operations while keeping track fo the errors that could happen in each operation. if any error is found pass it back and rollback the transaction, else, commit the transaction.
+
+Day 7: 
+
+The reason why we can't just get accounts and update on the fly is that multiple concurrent access to the database can still access the same stale data. So we need to make sure incoming database requests wait for a cell to finish updating. We're doing that by adding FORCE UPDATE to the sql query. 
