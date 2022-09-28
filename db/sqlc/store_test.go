@@ -35,8 +35,11 @@ func TestTransferTx(t *testing.T) {
 
 		//As it stands, using testify inside this inner goroutine will not `definitely` stop the execution
 		//of the outer goroutine
+
+		//Creating a new name annd key for for every transaction. We pass the name and key into the context.WithValue() method
+		// txName := fmt.Sprintf("tx %d", i)
 		go func() {
-			result, err := testStore.TransferTx(context.Background(), TransferTxParams{
+			result, err := testStore.TransferTx( /*context.WithValue(context.Background(), txKey, txName) */ context.Background(), TransferTxParams{
 				FromAccountID: account1.ID,
 				ToAccountID:   account2.ID,
 				Amount:        amount,

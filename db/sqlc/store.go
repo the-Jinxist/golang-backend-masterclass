@@ -21,6 +21,8 @@ func NewStore(db *sql.DB) *Store {
 	}
 }
 
+// var txKey = struct{}{}
+
 //This function creates a new DB transaction
 
 //This function is not exported as we don't want other classes to be able to call
@@ -76,6 +78,9 @@ func (store *Store) TransferTx(ctx context.Context, arg TransferTxParams) (Trans
 
 		var err error
 
+		// txName := ctx.Value(txKey)
+		// fmt.Println(txName, "create transfer")
+
 		result.Transfers, err = q.CreateTransfer(
 			ctx,
 			CreateTransferParams{
@@ -88,6 +93,7 @@ func (store *Store) TransferTx(ctx context.Context, arg TransferTxParams) (Trans
 			return err
 		}
 
+		// fmt.Println(txName, "create from entry")
 		result.FromEntry, err = q.CreateEntry(ctx, CreateEntryParams{
 			AccountID: arg.FromAccountID,
 			Amount:    -arg.Amount,
@@ -97,6 +103,7 @@ func (store *Store) TransferTx(ctx context.Context, arg TransferTxParams) (Trans
 			return err
 		}
 
+		// fmt.Println(txName, "create to transfer")
 		result.ToEntry, err = q.CreateEntry(ctx, CreateEntryParams{
 			AccountID: arg.ToAccountID,
 			Amount:    arg.Amount,
@@ -109,28 +116,23 @@ func (store *Store) TransferTx(ctx context.Context, arg TransferTxParams) (Trans
 		//TODO: UPDATE ACCOUNT BALANCE has to do with locking to prevent database deadlocks
 		//We have to get an account, update the balance by adding or subtracting it's balance, then add it back to the
 		//database
-		account1, err := q.GetAccount(ctx, arg.FromAccountID)
-		if err != nil {
-			return err
-		}
 
-		result.FromAccount, err = q.UpdateAccount(ctx, UpdateAccountParams{
-			ID:      account1.ID,
-			Balance: account1.Balance - arg.Amount,
+		// fmt.Println(txName, "get account for update account 1")
+
+		// fmt.Println(txName, "update from acount")
+		result.FromAccount, err = q.AddAccountBalance(ctx, AddAccountBalanceParams{
+			ID:     arg.FromAccountID,
+			Amount: -arg.Amount,
 		})
 
 		if err != nil {
 			return err
 		}
 
-		account2, err := q.GetAccount(ctx, arg.ToAccountID)
-		if err != nil {
-			return err
-		}
-
-		result.ToAccount, err = q.UpdateAccount(ctx, UpdateAccountParams{
-			ID:      account2.ID,
-			Balance: account2.Balance + arg.Amount,
+		// fmt.Println(txName, "update to acount")
+		result.ToAccount, err = q.AddAccountBalance(ctx, AddAccountBalanceParams{
+			ID:     arg.ToAccountID,
+			Amount: arg.Amount,
 		})
 
 		if err != nil {
