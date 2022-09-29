@@ -53,3 +53,7 @@ The reason why we can't just get accounts and update on the fly is that multiple
 Day 8: 
 
 Simulated a database deadlock. Worked on debugging that using a transaction key and name for each transaction using context.WithValue() and logging those values. We fiund two ways to avoid deadlocks in this case: removing the foreign key constraints(a bad solution because it reduces the validity of the database) and adding the FOR NO KEY UPDATE to the sql query. We also updated the update account sql command to also change the add an amount to the balance of an account
+
+Day 9:
+
+We learnt that deadlocks can still happen. The best way to avoid them is to make sure that you order your query very well.
