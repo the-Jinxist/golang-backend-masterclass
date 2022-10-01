@@ -56,4 +56,17 @@ Simulated a database deadlock. Worked on debugging that using a transaction key 
 
 Day 9:
 
-We learnt that deadlocks can still happen. The best way to avoid them is to make sure that you order your query very well.
+We learnt that deadlocks can still happen. The best way to avoid them is to make sure that you order your query very well. We also studied isolation levels within query transactions in postgres. Highlighted the I in ACID. We have to make sure that transactions running concurrently don't affect each other. This can result in multiple forms.
+- Dirty Read: A transaction reads data written by another concurrent *uncommited* transaction. This is very bad because we don't even know it the uncommited transactionn will be actually commited or rolled back.
+- Non-repeatable read: A transaction reads a row twice and sees different values because it has been modified by other committed transaction.
+- Phantom read: A transaction re-executes a query to find rows that meet a certain condition and sees a different set of rows due to changes by other commited transaction
+- Serialization Anomaly: The result of a group of concurrent commited transactions is impossible to achieve if we try to run them sequentially in any order without overlapping
+
+To beat this 4 isolation leves were created:
+- Read Uncomitted: Transactions can read uncommited changes to the database
+- Read Comitted: Transactions can only read commited changes to the database
+- Repeatable Read: Same read query always return the same result
+- Serializable: Can achieve same result if transactions are executed in sequential order
+
+Day 10:
+    In order to see how the isolation levels work with read phenomena, I had to get the docker image for mysql and create a container, connect to table plus and run commands in the docker container using docker exec. It was something. 
