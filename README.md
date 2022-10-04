@@ -95,3 +95,11 @@ Finished learning about isolation levels in MySql and PostGres.
 
 NB: Using a high transaction isolation level might lead to deadlocks so you have to implement retry mechanisms. Also make sure to read documentation to see how database engines implement
     these transaction isolation levels.
+
+Setting up Github Actions to run automated tests:
+1. Workflow: Automated procedure. Made up of 1+ jobs. Triggered by events, scheduled or manually. To create a workflow, added a .yml file to your repository.
+2. Runner: A server that listens for available jobs, runs one job at a time, we can use a github-hosted runner or a runner of our choosing. Reports progress and logs and results
+   to the Github UI 
+3. Jobs: A set of steps that execute on the same runner. Normal jobs run in parallel. Dependent jobs run serially.
+4. Steps: an individual task that run serially within a job. contains 1+ actions
+5. Actions: A standalone command. Run serially within a step. Can be reused.
