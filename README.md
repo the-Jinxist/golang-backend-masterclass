@@ -70,3 +70,28 @@ To beat this 4 isolation leves were created:
 
 Day 10:
     In order to see how the isolation levels work with read phenomena, I had to get the docker image for mysql and create a container, connect to table plus and run commands in the docker container using docker exec. It was something. 
+
+Day 11;
+Finished learning about isolation levels in MySql and PostGres.
+- MySql:
+    - Read Uncommitted: Doesn't prevent any of the transaction phenomena.
+    - Read committed: Only prevents dirty read.
+    - Repeatable Read: Prevents dirty read, Non-repeatable read and phantom read.
+    - Serializable: Prevents every transaction phenomena.
+
+    - Uses locking mechanisms for stoping concurrent reads when a share lock is gotten.
+    - The default transaction isolation level: is repeatable read.
+
+- Postgres: 
+    - Read Uncommitted: Behaves the same way as read commited. Only prevents dirty read.
+    - Read committed: Only prevents dirty read.
+    - Repeatable Read: Prevents dirty read, Non-repeatable read and phantom read.
+    - Serializable: Prevents every transaction phenomena.
+
+    *So Postgres basically has 3 isolation levels*
+
+    - Uses dependency detection to detect when a share lock is gotten
+    - The default transaction isolation level: is read uncommitted
+
+NB: Using a high transaction isolation level might lead to deadlocks so you have to implement retry mechanisms. Also make sure to read documentation to see how database engines implement
+    these transaction isolation levels.

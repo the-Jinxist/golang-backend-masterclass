@@ -10,12 +10,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Fri Sep 30 18:52:39 2022
+# Make data base, printed on Tue Oct  4 07:01:39 2022
 
 # Variables
 
 # automatic
- 
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
@@ -50,15 +49,13 @@ PATH = /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sb
 # environment
 GOPATH = /Users/neo/go
 # environment
-LaunchInstanceID = 1ADB0AEF-6919-4604-8450-803D23CE93D0
-# environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
 ANDROID_HOME = /Users/neo/Library/Android/sdk
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.j0ZpSZXCi9/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.LBqDGeWCIy/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -139,13 +136,10 @@ __CF_USER_TEXT_ENCODING = 0x1F5:0:2
 COMMAND_MODE = unix2003
 # default
 MAKEFILES := 
- 
 # automatic
 <F = $(notdir $<)
 # environment
 LC_ALL = C
-# environment
-SECURITYSESSIONID = 186ad
 # automatic
 ^F = $(notdir $^)
 # default
@@ -157,9 +151,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 5919
+VSCODE_PID = 1140
 # variable set hash-table stats:
-# Load=71/1024=7%, Rehash=0, Collisions=2/95=2%
+# Load=69/1024=7%, Rehash=0, Collisions=2/93=2%
 
 # Pattern-specific Variable Values
 
@@ -167,7 +161,7 @@ VSCODE_PID = 5919
 
 # Directories
 
-# . (device 16777232, inode 56922006): 15 files, no impossibilities.
+# . (device 16777234, inode 56922006): 15 files, no impossibilities.
 
 # 15 files, no impossibilities in 1 directories.
 
@@ -195,7 +189,7 @@ all:
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc test
+.PHONY: postgres createdb dropdb migrateup migratedown sqlc test mysql
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -205,7 +199,7 @@ sqlc:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 17):
+#  commands to execute (from `Makefile', line 20):
 	sqlc generate
 	
 
@@ -218,7 +212,7 @@ sqlc:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-09-09 08:58:42
+#  Last modified 2022-10-01 09:13:47
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -229,7 +223,7 @@ test:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 20):
+#  commands to execute (from `Makefile', line 23):
 	go test -v -cover ./...
 	
 
@@ -239,7 +233,6 @@ createdb:
 #  File does not exist.
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 5):
- 
 	docker exec -it postgres-learning1 createdb --username=root --owner=root simple_bank
 	
 
@@ -264,6 +257,15 @@ migrateup:
 	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up
 	
 
+mysql:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 17):
+	docker run --name mysql-learning1 -p 3306:3306 -e MYSQL_DATABASE=simple_bank -e MYSQL_USER=banker -e MYSQL_PASSWORD=secret -e MYSQL_ROOT_PASSWORD=secret -d mysql:5.7
+	
+
 drobdb:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -282,7 +284,7 @@ migratedown:
 	
 
 # files hash-table stats:
-# Load=13/1024=1%, Rehash=0, Collisions=0/32=0%
+# Load=14/1024=1%, Rehash=0, Collisions=0/34=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -294,6 +296,6 @@ migratedown:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Fri Sep 30 18:52:39 2022
+# Finished Make data base on Tue Oct  4 07:01:39 2022
 
  
