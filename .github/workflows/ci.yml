@@ -38,6 +38,16 @@ jobs:
       with:
         go-version: 1.17.5
       id: go
+
+    # We forgot to install the golang-migrate cli tool. I completely forgot we did it way back in the tutorial. Omo
+    # Found a link to the CLI binary that corresponds to the runner of this job, ubuntu, which is, linux-amd64.
+    # We then moved the binary to the /usr/bin/ so we can run it
+    #The we call which migrate to make sure everything was done successfully
+    - name: Get Migrate CLI
+      run: |
+       $ curl -L https://github.com/golang-migrate/migrate/releases/download/v4.15.2/migrate.linux-amd64.tar.gz | tar xvz
+       sudo mv migrate.linux-amd64 /usr/bin/
+       which migrate
     
     - name: We need to run migrations
       run: make migrateup 
