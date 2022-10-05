@@ -11,6 +11,23 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+
+    #We need access to posgres in order to test, so we use an external service container that github actions provide
+    services:
+      postgres:
+        image: postgres
+        env:
+          #Using the same postgres environmental variables used in the command
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: secret
+          POSTGRES_DB: simple_bank
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
 
     - name: Check out code into the Go module directory
@@ -21,6 +38,9 @@ jobs:
       with:
         go-version: 1.17.5
       id: go
+    
+    - name: We need to run migrations
+      run: make migrateup 
 
     - name: Test
       run: make test
