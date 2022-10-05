@@ -103,3 +103,7 @@ Setting up Github Actions to run automated tests:
 3. Jobs: A set of steps that execute on the same runner. Normal jobs run in parallel. Dependent jobs run serially.
 4. Steps: an individual task that run serially within a job. contains 1+ actions
 5. Actions: A standalone command. Run serially within a step. Can be reused.
+
+Day 12:
+
+Finsihed up Github Actions. Main blockers what using the service container for postgres, adding the necessary evironment variables. More details can be found (here)[https://docs.github.com/en/actions/using-containerized-services/creating-postgresql-service-containers], and running migrate tools with the right CLI. Links can be found (here)[https://github.com/golang-migrate/migrate#cli-usage] also.
