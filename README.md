@@ -107,3 +107,11 @@ Setting up Github Actions to run automated tests:
 Day 12:
 
 Finsihed up Github Actions. Main blockers what using the service container for postgres, adding the necessary evironment variables. More details can be found (here)[https://docs.github.com/en/actions/using-containerized-services/creating-postgresql-service-containers], and running migrate tools with the right CLI. Links can be found (here)[https://github.com/golang-migrate/migrate#cli-usage] also.
+
+Day 13:
+
+Started work on using the (Gin)[https://github.com/gin-gonic/gin] library to create REST Api endpoints.
+
+Day 14:
+
+Created routes for creating and getting accounts
