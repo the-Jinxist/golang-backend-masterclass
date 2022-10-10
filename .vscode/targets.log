@@ -10,7 +10,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Fri Oct  7 02:20:38 2022
+# Make data base, printed on Mon Oct 10 21:53:45 2022
 
 # Variables
 
@@ -23,7 +23,6 @@ make: *** No rule to make target `all'.  Stop.
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # automatic
- 
 @F = $(notdir $@)
 # makefile
 CURDIR := /Users/neo/go/src/backend-masterclass
@@ -42,6 +41,7 @@ __CFBundleIdentifier = com.microsoft.VSCode
 # environment
 INFOPATH = /opt/homebrew/share/info:
 # environment
+ 
 VSCODE_CWD = /
 # environment
 GOPROXY = https://proxy.golang.org,direct
@@ -56,7 +56,7 @@ ANDROID_HOME = /Users/neo/Library/Android/sdk
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.LBqDGeWCIy/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.ZiSY41HOqk/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -76,9 +76,10 @@ HOME = /Users/neo
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/neo/Library/Application Support/Code/CachedData/74b1f979648cc44d385a2286793c226e611f59e7
+VSCODE_CODE_CACHE_PATH = /Users/neo/Library/Application Support/Code/CachedData/64bbfbf67ada9953918d72e1df2f4d8e537d340e
 # environment
 LOGNAME = neo
+ 
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
@@ -109,8 +110,9 @@ MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
 TMPDIR = /var/folders/8q/mqws9vgd7wlgj8vp4s29shq40000gn/T/
 # automatic
 *F = $(notdir $*)
+ 
 # environment
-VSCODE_IPC_HOOK = /Users/neo/Library/Application Support/Code/1.71.2-main.sock
+VSCODE_IPC_HOOK = /Users/neo/Library/Application Support/Code/1.72.0-main.sock
 # environment
 MallocNanoZone = 0
 # makefile
@@ -122,7 +124,7 @@ MFLAGS = -Rrqp
 # environment
 NVM_DIR = /Users/neo/.nvm
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.69783353.69783359
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.73480290.73480296
 # environment
 HOMEBREW_PREFIX = /opt/homebrew
 # automatic
@@ -152,8 +154,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 89242
+VSCODE_PID = 13174
 # variable set hash-table stats:
+ 
 # Load=69/1024=7%, Rehash=0, Collisions=2/93=2%
 
 # Pattern-specific Variable Values
@@ -190,7 +193,7 @@ all:
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc test mysql
+.PHONY: postgres createdb dropdb migrateup migratedown sqlc test mysql server
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -213,11 +216,20 @@ sqlc:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-10-01 09:13:47
+#  Last modified 2022-10-07 02:57:43
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+server:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 26):
+	go run main.go
+	
 
 test:
 #  Phony target (prerequisite of .PHONY).
@@ -244,6 +256,7 @@ createdb:
 #  File has not been updated.
 
 dropdb:
+ 
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
@@ -285,7 +298,7 @@ migratedown:
 	
 
 # files hash-table stats:
-# Load=14/1024=1%, Rehash=0, Collisions=0/34=0%
+# Load=15/1024=1%, Rehash=0, Collisions=0/36=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -297,6 +310,6 @@ migratedown:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Fri Oct  7 02:20:38 2022
+# Finished Make data base on Mon Oct 10 21:53:45 2022
 
  

@@ -114,4 +114,24 @@ Started work on using the (Gin)[https://github.com/gin-gonic/gin] library to cre
 
 Day 14:
 
-Created routes for creating and getting accounts
+Created routes for creating and getting accounts.
+
+Day 15:
+
+Created the route for getting list of accounts with pagination variables in the URL Queries. Also edited sqlc.yaml file to `emit_empty_queries: true` to make sure it returns an empty list when there are no more accounts to query. Finished up HTTP API implementation wth golang. Finished up initial REST API learnings with golang
+
+Made 3 endpoints:
+- GET with `/account/:id` to get one unique account
+- POST with `/accounts` to create one account.
+ - With a payload like:
+   ```
+    {
+        "owner": "Favour",
+        "currency": ""
+    }
+    
+   ```
+- GET with `/accounts` to GET  a list of accounts. Requires `page_size` and `page_id` parameters to work.
+
+*Local host URL, of course `localhost:8080`*
+

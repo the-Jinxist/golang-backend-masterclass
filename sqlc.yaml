@@ -8,3 +8,4 @@ sql:
       package: "backend_masterclass"
       out: "./db/sqlc"
       emit_exact_table_names: true
+      emit_empty_slices: true
