@@ -6,11 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
-make: *** No rule to make target `all'.  Stop.
 
-
-# Make data base, printed on Mon Oct 10 21:53:45 2022
+# Make data base, printed on Tue Oct 11 19:35:44 2022
 
 # Variables
 
@@ -41,7 +38,6 @@ __CFBundleIdentifier = com.microsoft.VSCode
 # environment
 INFOPATH = /opt/homebrew/share/info:
 # environment
- 
 VSCODE_CWD = /
 # environment
 GOPROXY = https://proxy.golang.org,direct
@@ -79,7 +75,6 @@ MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 VSCODE_CODE_CACHE_PATH = /Users/neo/Library/Application Support/Code/CachedData/64bbfbf67ada9953918d72e1df2f4d8e537d340e
 # environment
 LOGNAME = neo
- 
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
@@ -110,7 +105,6 @@ MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
 TMPDIR = /var/folders/8q/mqws9vgd7wlgj8vp4s29shq40000gn/T/
 # automatic
 *F = $(notdir $*)
- 
 # environment
 VSCODE_IPC_HOOK = /Users/neo/Library/Application Support/Code/1.72.0-main.sock
 # environment
@@ -154,9 +148,8 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 13174
+VSCODE_PID = 4562
 # variable set hash-table stats:
- 
 # Load=69/1024=7%, Rehash=0, Collisions=2/93=2%
 
 # Pattern-specific Variable Values
@@ -256,7 +249,6 @@ createdb:
 #  File has not been updated.
 
 dropdb:
- 
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
@@ -310,6 +302,9 @@ migratedown:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Mon Oct 10 21:53:45 2022
+ 
+make: *** No rule to make target `all'.  Stop.
+
+# Finished Make data base on Tue Oct 11 19:35:44 2022
 
  

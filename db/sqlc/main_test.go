@@ -1,18 +1,14 @@
 package backend_masterclass
 
 import (
+	"backend_masterclass/util"
 	"database/sql"
 	"log"
 	"os"
 	"testing"
 
-	_ "github.com/lib/pq"
-)
-
-const (
 	//We used the lib/pq library to use the correct postgres driver
-	dbDriver = "postgres"
-	dbSource = "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable"
+	_ "github.com/lib/pq"
 )
 
 var testQueries *Queries
@@ -22,7 +18,12 @@ var testDB *sql.DB
 func TestMain(m *testing.M) {
 	var err error
 
-	testDB, err = sql.Open(dbDriver, dbSource)
+	config, err := util.LoadConfig("../..")
+	if err != nil {
+		log.Fatal("cannot load config values from file: ", err.Error())
+	}
+
+	testDB, err = sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
