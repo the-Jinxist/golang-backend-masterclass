@@ -135,3 +135,7 @@ Made 3 endpoints:
 
 *Local host URL, of course `localhost:8080`*
 
+Day 16:
+
+Learnt how to load environment variables with Viper package. Moved away from hardcoding environment variables to adding them to an app.env file
+
