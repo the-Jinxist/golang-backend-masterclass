@@ -32,3 +32,10 @@ type Transfers struct {
 	Amout     int64
 	CreatedAt time.Time
 }
+
+type Withdrawals struct {
+	ID          int64
+	FromAccount int64
+	Amout       int64
+	CreatedAt   time.Time
+}

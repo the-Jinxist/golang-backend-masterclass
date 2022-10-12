@@ -139,3 +139,25 @@ Day 16:
 
 Learnt how to load environment variables with Viper package. Moved away from hardcoding environment variables to adding them to an app.env file
 
+Day 17:
+
+Learning how to mock DBs for testing. Why do we mock DBs
+
+Why do we mock database(not to make fun of them, I promise🌚):
+
+1. Independent Tests: Isolate tests to avoid conflicts
+2. Faster tests: Since they don't use the actual DB
+3. 100% Coverage: Mock DBs can be used to test unexpected erros and results, which cannot be done using an actual DB
+
+How to mock:
+
+1. Use fake DM - Memory: Implement a fake version of DB: store data in memory. However this requires us to write a lot more code
+2. Use DB Stubs - Gomock: Generate and build stubs that return hard-coded values
+
+`var _ Querier = (*Queries)(nil)` in the querier.go file makes sure that the `Queries` struct implements all the methods that are spelt out in
+the `Querier` interface. We then made the `Store` struct into an `interface`, and we used the `gomock` package to mock the Store struct.
+
+*Using mockgen*: Mockgen has two ways of mocking interfaces/structs. `reflect` and `source` mode. `source` mode will get very much complicated if we have other code
+imported from other files, `reflect` just makes use of the package of the file and the name of the interface. So we choose to use `reflect` instead.
+
+running the mock command goes like: `mockgen {[module copied from top of go.mod file]/[path]/[to]/[interface]/[you]/[want]/[to]/[mock]} {name of the interface}`

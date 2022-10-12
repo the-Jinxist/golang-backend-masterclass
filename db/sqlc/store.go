@@ -7,15 +7,21 @@ import (
 )
 
 //Store provides all functions to execute db queries and transactions
-type Store struct {
-	//Using a queries struct like this is called composition. It is said to be a better
-	//decision than inheritance
-	*Queries //This line exactly is the composition, adding this pointer gives the Store struct the behaviour of the Queries struct. Make sesne pa
-	db       *sql.DB
+type Store interface {
+	Querier
+	TransferTx(ctx context.Context, arg TransferTxParams) (TransferTxResult, error)
 }
 
-func NewStore(db *sql.DB) *Store {
-	return &Store{
+type SQLStore struct {
+	//Using a queries struct like this is called composition. It is said to be a better
+	//decision than inheritance
+	//This line exactly is the composition, adding this pointer gives the Store struct the behaviour of the Queries struct. Make sesne pa
+	db *sql.DB
+	*Queries
+}
+
+func NewStore(db *sql.DB) Store {
+	return &SQLStore{
 		db:      db,
 		Queries: New(db),
 	}
@@ -27,7 +33,7 @@ func NewStore(db *sql.DB) *Store {
 
 //This function is not exported as we don't want other classes to be able to call
 //the function directly
-func (store *Store) execTx(ctx context.Context, fn func(*Queries) error) error {
+func (store *SQLStore) execTx(ctx context.Context, fn func(*Queries) error) error {
 	//[&sql.TxOptions{}] allows us to set a custom isolation level for this
 	//transaction
 	tx, err := store.db.BeginTx(ctx, &sql.TxOptions{})
@@ -70,7 +76,7 @@ type TransferTxResult struct {
 
 //This function executes the transfer transaction i.e the transfer of money from
 //one account to another
-func (store *Store) TransferTx(ctx context.Context, arg TransferTxParams) (TransferTxResult, error) {
+func (store *SQLStore) TransferTx(ctx context.Context, arg TransferTxParams) (TransferTxResult, error) {
 
 	var result TransferTxResult
 

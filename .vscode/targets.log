@@ -7,7 +7,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 
 # This program built for i386-apple-darwin11.3.0
 
-# Make data base, printed on Tue Oct 11 19:35:44 2022
+# Make data base, printed on Wed Oct 12 09:31:20 2022
 
 # Variables
 
@@ -72,7 +72,7 @@ HOME = /Users/neo
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/neo/Library/Application Support/Code/CachedData/64bbfbf67ada9953918d72e1df2f4d8e537d340e
+VSCODE_CODE_CACHE_PATH = /Users/neo/Library/Application Support/Code/CachedData/129500ee4c8ab7263461ffe327268ba56b9f210d
 # environment
 LOGNAME = neo
 # environment
@@ -106,7 +106,7 @@ TMPDIR = /var/folders/8q/mqws9vgd7wlgj8vp4s29shq40000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/neo/Library/Application Support/Code/1.72.0-main.sock
+VSCODE_IPC_HOOK = /Users/neo/Library/Application Support/Code/1.72.1-main.sock
 # environment
 MallocNanoZone = 0
 # makefile
@@ -118,7 +118,7 @@ MFLAGS = -Rrqp
 # environment
 NVM_DIR = /Users/neo/.nvm
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.73480290.73480296
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.74377889.74377895
 # environment
 HOMEBREW_PREFIX = /opt/homebrew
 # automatic
@@ -148,7 +148,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 4562
+VSCODE_PID = 52899
 # variable set hash-table stats:
 # Load=69/1024=7%, Rehash=0, Collisions=2/93=2%
 
@@ -158,9 +158,9 @@ VSCODE_PID = 4562
 
 # Directories
 
-# . (device 16777234, inode 56922006): 18 files, no impossibilities.
+# . (device 16777234, inode 56922006): 19 files, no impossibilities.
 
-# 18 files, no impossibilities in 1 directories.
+# 19 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -305,6 +305,6 @@ migratedown:
  
 make: *** No rule to make target `all'.  Stop.
 
-# Finished Make data base on Tue Oct 11 19:35:44 2022
+# Finished Make data base on Wed Oct 12 09:31:20 2022
 
  

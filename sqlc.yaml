@@ -9,3 +9,4 @@ sql:
       out: "./db/sqlc"
       emit_exact_table_names: true
       emit_empty_slices: true
+      emit_interface: true
