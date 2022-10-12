@@ -161,3 +161,5 @@ the `Querier` interface. We then made the `Store` struct into an `interface`, an
 imported from other files, `reflect` just makes use of the package of the file and the name of the interface. So we choose to use `reflect` instead.
 
 running the mock command goes like: `mockgen {[module copied from top of go.mod file]/[path]/[to]/[interface]/[you]/[want]/[to]/[mock]} {name of the interface}`
+
+In order to make it work, I add to run `go mod tidy -compat=1.17` and `go mod vendor`. For any missing values that don't have their respective folder in the generated vendor foler, you can just do a blank import in any file and run `go mod tidy` and `go mod vendor` again
