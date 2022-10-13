@@ -19,9 +19,9 @@ RETURNING id, from_account, to_account, amout, created_at
 `
 
 type CreateTransferParams struct {
-	FromAccount int64
-	ToAccount   int64
-	Amout       int64
+	FromAccount int64 `json:"from_account"`
+	ToAccount   int64 `json:"to_account"`
+	Amout       int64 `json:"amout"`
 }
 
 func (q *Queries) CreateTransfer(ctx context.Context, arg CreateTransferParams) (Transfers, error) {
@@ -65,10 +65,10 @@ OFFSET $4
 `
 
 type GetTransfersParams struct {
-	FromAccount int64
-	ToAccount   int64
-	Limit       int32
-	Offset      int32
+	FromAccount int64 `json:"from_account"`
+	ToAccount   int64 `json:"to_account"`
+	Limit       int32 `json:"limit"`
+	Offset      int32 `json:"offset"`
 }
 
 func (q *Queries) GetTransfers(ctx context.Context, arg GetTransfersParams) ([]Transfers, error) {

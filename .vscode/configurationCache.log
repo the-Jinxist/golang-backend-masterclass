@@ -1,1 +1,1 @@
-{"buildTargets":["createdb","drobdb","dropdb","make","migratedown","migrateup","mysql","postgres","server","sqlc","test"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}
+{"buildTargets":["createdb","drobdb","dropdb","migratedown","migrateup","mysql","postgres","server","sqlc","test"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}
