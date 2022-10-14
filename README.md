@@ -163,3 +163,10 @@ imported from other files, `reflect` just makes use of the package of the file a
 running the mock command goes like: `mockgen {[module copied from top of go.mod file]/[path]/[to]/[interface]/[you]/[want]/[to]/[mock]} {name of the interface}`
 
 In order to make it work, I add to run `go mod tidy -compat=1.17` and `go mod vendor`. For any missing values that don't have their respective folder in the generated vendor foler, you can just do a blank import in any file and run `go mod tidy` and `go mod vendor` again
+
+Day 18:
+
+Learnt a lesson. Make sure the struct you're returning in `recorder.Body([struct])` is the same as the struct returned in `ctx.Json(code, [struct]`). Unless your test will not run o lmao. Main issues:
+- Creating a list of anonymous structs kinda caught me off guard, anonymous structs containing anonymous functions too lol
+- made sure the forloop uses all the vales from each item in the list of test cases.
+- Created a new main_test.go file so we can remove the verbose logs that gin keeps giving us

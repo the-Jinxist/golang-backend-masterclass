@@ -69,14 +69,11 @@ func (server *Server) getAccount(ctx *gin.Context) {
 			return
 		}
 
-		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
 
-	ctx.JSON(http.StatusCreated, gin.H{
-		"status": "success",
-		"data":   account,
-	})
+	ctx.JSON(http.StatusCreated, account)
 }
 
 type ListAccountRequest struct {

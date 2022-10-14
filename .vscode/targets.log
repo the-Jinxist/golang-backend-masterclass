@@ -10,14 +10,13 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Thu Oct 13 10:44:56 2022
+# Make data base, printed on Fri Oct 14 07:15:30 2022
 
 # Variables
 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
- 
 ?F = $(notdir $?)
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
@@ -76,7 +75,7 @@ HOME = /Users/neo
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/neo/Library/Application Support/Code/CachedData/129500ee4c8ab7263461ffe327268ba56b9f210d
+VSCODE_CODE_CACHE_PATH = /Users/neo/Library/Application Support/Code/CachedData/d045a5eda657f4d7b676dedbfa7aab8207f8a075
 # environment
 LOGNAME = neo
 # environment
@@ -110,7 +109,7 @@ TMPDIR = /var/folders/8q/mqws9vgd7wlgj8vp4s29shq40000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/neo/Library/Application Support/Code/1.72.1-main.sock
+VSCODE_IPC_HOOK = /Users/neo/Library/Application Support/Code/1.72.2-main.sock
 # environment
 MallocNanoZone = 0
 # makefile
@@ -133,6 +132,7 @@ HOMEBREW_PREFIX = /opt/homebrew
 HOMEBREW_REPOSITORY = /opt/homebrew
 # environment
 __CF_USER_TEXT_ENCODING = 0x1F5:0:2
+ 
 # environment
 COMMAND_MODE = unix2003
 # default
@@ -152,8 +152,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 890
- 
+VSCODE_PID = 68861
 # variable set hash-table stats:
 # Load=69/1024=7%, Rehash=0, Collisions=2/93=2%
 
@@ -191,7 +190,7 @@ all:
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc test mysql server
+.PHONY: postgres createdb dropdb migrateup migratedown sqlc test mysql server mock
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -214,7 +213,7 @@ sqlc:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-10-07 02:57:43
+#  Last modified 2022-10-13 10:50:53
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -267,7 +266,6 @@ migrateup:
 #  commands to execute (from `Makefile', line 11):
 	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up
 	
- 
 
 mysql:
 #  Phony target (prerequisite of .PHONY).
@@ -295,8 +293,17 @@ migratedown:
 	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down
 	
 
+mock:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 29):
+	mockgen -package mockdb -destination db/mock/store.go backend_masterclass/db/sqlc Store
+	
+
 # files hash-table stats:
-# Load=15/1024=1%, Rehash=0, Collisions=0/36=0%
+# Load=16/1024=2%, Rehash=0, Collisions=0/38=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -308,6 +315,6 @@ migratedown:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Thu Oct 13 10:44:56 2022
+# Finished Make data base on Fri Oct 14 07:15:30 2022
 
  
