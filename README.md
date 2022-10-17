@@ -170,3 +170,8 @@ Learnt a lesson. Make sure the struct you're returning in `recorder.Body([struct
 - Creating a list of anonymous structs kinda caught me off guard, anonymous structs containing anonymous functions too lol
 - made sure the forloop uses all the vales from each item in the list of test cases.
 - Created a new main_test.go file so we can remove the verbose logs that gin keeps giving us
+
+Day 19:
+
+We created the endpoint for creating transfers and wrote up a custom validator for Gin to check if the currency used in every transaction is supported by our simplebank. We also made sure to check
+for discrepancies in currencies for different accounts. Maybe I will whip up a transfer rate someday sha. Something to think about
