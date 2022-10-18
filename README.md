@@ -175,3 +175,7 @@ Day 19:
 
 We created the endpoint for creating transfers and wrote up a custom validator for Gin to check if the currency used in every transaction is supported by our simplebank. We also made sure to check
 for discrepancies in currencies for different accounts. Maybe I will whip up a transfer rate someday sha. Something to think about
+
+Day 20:
+
+We created a new migration with the new postgresql code generated from the dbdiagram.io model. Using the command `migrate create -ext sql -dir {directory-to-your-migration-files} -seq {name-of-migration}`. We're adding a new table called users and working on the migration
