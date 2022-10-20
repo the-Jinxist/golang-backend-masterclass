@@ -10,4 +10,4 @@ CREATE TABLE "users" (
 ALTER TABLE "accounts" ADD FOREIGN KEY ("owner") REFERENCES "users" ("username");
 
 -- CREATE UNIQUE INDEX ON "accounts" ("owner", "currency"); Decided to scrap this and add a unique constraint to the pair of owner and currency
-ALTER TABLE "accounts" ADD CONSTRAINT "owner_currency_key" UNIQUE ("owner, currency");
+ALTER TABLE "accounts" ADD CONSTRAINT "owner_currency_key" UNIQUE ("owner", "currency");
