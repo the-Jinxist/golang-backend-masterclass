@@ -179,3 +179,7 @@ for discrepancies in currencies for different accounts. Maybe I will whip up a t
 Day 20:
 
 We created a new migration with the new postgresql code generated from the dbdiagram.io model. Using the command `migrate create -ext sql -dir {directory-to-your-migration-files} -seq {name-of-migration}`. We're adding a new table called users and working on the migration
+
+Day 21:
+
+Finished writing up the SQL commands for the migrate up and migrate down for the new `users` table.
