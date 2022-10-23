@@ -11,8 +11,10 @@ import (
 )
 
 func TestCreateAccount(t *testing.T) {
+	user := createRandomUser(t)
+
 	arg := CreateAccountParams{
-		Owner:    util.RandomOwner(),
+		Owner:    user.Username,
 		Balance:  util.RandomMoney(),
 		Currency: util.RandomCurrency(),
 	}
@@ -36,8 +38,10 @@ func TestCreateAccount(t *testing.T) {
 
 func TestGetAccount(t *testing.T) {
 	//Unit tests should be independent from each other, so we'll have to create an account before then getting said account
+	user := createRandomUser(t)
+
 	arg := CreateAccountParams{
-		Owner:    util.RandomOwner(),
+		Owner:    user.Username,
 		Balance:  util.RandomMoney(),
 		Currency: util.RandomCurrency(),
 	}
@@ -59,8 +63,10 @@ func TestGetAccount(t *testing.T) {
 }
 
 func TestUpdateAccount(t *testing.T) {
+	user := createRandomUser(t)
+
 	arg := CreateAccountParams{
-		Owner:    util.RandomOwner(),
+		Owner:    user.Username,
 		Balance:  util.RandomMoney(),
 		Currency: util.RandomCurrency(),
 	}
@@ -88,8 +94,10 @@ func TestUpdateAccount(t *testing.T) {
 }
 
 func TestDeleteAccount(t *testing.T) {
+	user := createRandomUser(t)
+
 	arg := CreateAccountParams{
-		Owner:    util.RandomOwner(),
+		Owner:    user.Username,
 		Balance:  util.RandomMoney(),
 		Currency: util.RandomCurrency(),
 	}
@@ -110,8 +118,10 @@ func TestDeleteAccount(t *testing.T) {
 
 func TestListAccount(t *testing.T) {
 	for i := 0; i < 10; i++ {
+		user := createRandomUser(t)
+
 		arg := CreateAccountParams{
-			Owner:    util.RandomOwner(),
+			Owner:    user.Username,
 			Balance:  util.RandomMoney(),
 			Currency: util.RandomCurrency(),
 		}

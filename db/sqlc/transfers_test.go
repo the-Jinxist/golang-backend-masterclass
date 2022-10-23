@@ -11,8 +11,10 @@ import (
 
 func TestCreateTransfer(t *testing.T) {
 
+	user := createRandomUser(t)
+
 	account1Params := CreateAccountParams{
-		Owner:    util.RandomOwner(),
+		Owner:    user.Username,
 		Balance:  util.RandomMoney(),
 		Currency: util.RandomCurrency(),
 	}
@@ -22,8 +24,10 @@ func TestCreateTransfer(t *testing.T) {
 	assert.NotNil(t, account1)
 	require.NotEmpty(t, account1)
 
+	user2 := createRandomUser(t)
+
 	account2Params := CreateAccountParams{
-		Owner:    util.RandomOwner(),
+		Owner:    user2.Username,
 		Balance:  util.RandomMoney(),
 		Currency: util.RandomCurrency(),
 	}
@@ -50,8 +54,11 @@ func TestCreateTransfer(t *testing.T) {
 }
 
 func TestGetTransfers(t *testing.T) {
+
+	user := createRandomUser(t)
+
 	account1Params := CreateAccountParams{
-		Owner:    util.RandomOwner(),
+		Owner:    user.Username,
 		Balance:  util.RandomMoney(),
 		Currency: util.RandomCurrency(),
 	}
@@ -61,8 +68,10 @@ func TestGetTransfers(t *testing.T) {
 	assert.NotNil(t, account1)
 	require.NotEmpty(t, account1)
 
+	user2 := createRandomUser(t)
+
 	account2Params := CreateAccountParams{
-		Owner:    util.RandomOwner(),
+		Owner:    user2.Username,
 		Balance:  util.RandomMoney(),
 		Currency: util.RandomCurrency(),
 	}
@@ -100,8 +109,11 @@ func TestGetTransfers(t *testing.T) {
 }
 
 func TestGetTransfer(t *testing.T) {
+
+	user := createRandomUser(t)
+
 	account1Params := CreateAccountParams{
-		Owner:    util.RandomOwner(),
+		Owner:    user.Username,
 		Balance:  util.RandomMoney(),
 		Currency: util.RandomCurrency(),
 	}
@@ -111,8 +123,10 @@ func TestGetTransfer(t *testing.T) {
 	assert.NotNil(t, account1)
 	require.NotEmpty(t, account1)
 
+	user2 := createRandomUser(t)
+
 	account2Params := CreateAccountParams{
-		Owner:    util.RandomOwner(),
+		Owner:    user2.Username,
 		Balance:  util.RandomMoney(),
 		Currency: util.RandomCurrency(),
 	}

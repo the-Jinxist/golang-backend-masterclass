@@ -6,8 +6,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
+ 
+make: *** No rule to make target `all'.  Stop.
 
-# Make data base, printed on Thu Oct 20 07:08:55 2022
+
+# Make data base, printed on Sun Oct 23 17:16:22 2022
 
 # Variables
 
@@ -119,6 +122,7 @@ MFLAGS = -Rrqp
 NVM_DIR = /Users/neo/.nvm
 # environment
 XPC_SERVICE_NAME = application.com.microsoft.VSCode.74377889.74377895
+ 
 # environment
 HOMEBREW_PREFIX = /opt/homebrew
 # automatic
@@ -148,7 +152,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 68861
+VSCODE_PID = 56982
 # variable set hash-table stats:
 # Load=69/1024=7%, Rehash=0, Collisions=2/93=2%
 
@@ -186,7 +190,16 @@ all:
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc test mysql server mock
+migratedown1:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 20):
+	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down 1
+	
+
+.PHONY: postgres createdb dropdb migrateup migratedown migrateup1 migratedown1 sqlc test mysql server mock
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -196,7 +209,7 @@ sqlc:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 20):
+#  commands to execute (from `Makefile', line 26):
 	sqlc generate
 	
 
@@ -209,7 +222,7 @@ sqlc:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-10-13 10:50:53
+#  Last modified 2022-10-20 07:43:39
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -220,7 +233,7 @@ server:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 26):
+#  commands to execute (from `Makefile', line 32):
 	go run main.go
 	
 
@@ -229,7 +242,7 @@ test:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 23):
+#  commands to execute (from `Makefile', line 29):
 	go test -v -cover ./...
 	
 
@@ -268,7 +281,7 @@ mysql:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 17):
+#  commands to execute (from `Makefile', line 23):
 	docker run --name mysql-learning1 -p 3306:3306 -e MYSQL_DATABASE=simple_bank -e MYSQL_USER=banker -e MYSQL_PASSWORD=secret -e MYSQL_ROOT_PASSWORD=secret -d mysql:5.7
 	
 
@@ -280,12 +293,21 @@ drobdb:
 	docker exec it postgres-learning1 dropdb simple_bank
 	
 
-migratedown:
+migrateup1:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 14):
+	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up 1
+	
+
+migratedown:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 17):
 	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down
 	
 
@@ -294,15 +316,13 @@ mock:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 29):
+#  commands to execute (from `Makefile', line 35):
 	mockgen -package mockdb -destination db/mock/store.go backend_masterclass/db/sqlc Store
 	
 
 # files hash-table stats:
-# Load=16/1024=2%, Rehash=0, Collisions=0/38=0%
  
-make: *** No rule to make target `all'.  Stop.
-
+# Load=18/1024=2%, Rehash=0, Collisions=0/42=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -314,6 +334,6 @@ make: *** No rule to make target `all'.  Stop.
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Thu Oct 20 07:08:55 2022
+# Finished Make data base on Sun Oct 23 17:16:22 2022
 
  
