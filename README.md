@@ -187,3 +187,5 @@ Finished writing up the SQL commands for the migrate up and migrate down for the
 Day 22: Learnt how to handle DB errors in golang. Also updated our code because we can't use any random owner for creating account anymore as per our created constraints.
 
 Day 23: Hashing password with bcrypt. Created util functions to hash and compare passwords, wrote tests for it too.
+
+Day 24: Added API for create and get user. Tweaked response to not return hashed password.
