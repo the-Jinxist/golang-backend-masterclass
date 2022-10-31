@@ -5,8 +5,11 @@ import (
 	"bytes"
 	"database/sql"
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
+	"reflect"
 	"testing"
 
 	mockdb "backend_masterclass/db/mock"
@@ -16,6 +19,40 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 )
+
+type eqChangeUserParamsMatcher struct {
+	arg      db.CreateUserParams
+	password string
+}
+
+func (e eqChangeUserParamsMatcher) Matches(x interface{}) bool {
+	arg, ok := x.(db.CreateUserParams)
+	if !ok {
+		return false
+	}
+
+	err := util.CheckPassword(e.password, arg.HashedPassword)
+	if err != nil {
+		return false
+	}
+
+	e.arg.HashedPassword = arg.HashedPassword
+	return reflect.DeepEqual(e.arg, arg)
+
+}
+
+func (e eqChangeUserParamsMatcher) String() string {
+	return fmt.Sprintf("matches arg %v and %v", e.arg, e.password)
+}
+
+func EqCreateUserParams(
+	arg db.CreateUserParams, password string,
+) eqChangeUserParamsMatcher {
+	return eqChangeUserParamsMatcher{
+		arg:      arg,
+		password: password,
+	}
+}
 
 func TestCreateUserApi(t *testing.T) {
 	user, password := createRandomUser()
@@ -35,13 +72,22 @@ func TestCreateUserApi(t *testing.T) {
 				"email":     user.Email,
 			},
 			buildStubs: func(store *mockdb.MockStore) {
+
+				arg := db.CreateUserParams{
+					Username: user.Username,
+					FullName: user.FullName,
+					Email:    user.Email,
+				}
+
 				store.EXPECT().
-					CreateUser(gomock.Any(), gomock.Any()).
+					//Using gomock.Any() will allow a loophole in our API code where an empty request struct can go through to the database
+					CreateUser(gomock.Any(), EqCreateUserParams(arg, password)).
 					Times(1).
 					Return(user, nil)
 			},
 			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusCreated, recorder.Code)
+				requireBodyMatchUser(t, recorder.Body, user)
 			},
 		},
 		{
@@ -161,4 +207,24 @@ func createRandomUser() (user db.Users, password string) {
 
 	return
 
+}
+
+type ResponseContainer struct {
+	Status string             `json:"status"`
+	Data   CreateUserResponse `json:"data"`
+}
+
+func requireBodyMatchUser(t *testing.T, body *bytes.Buffer, account db.Users) {
+	data, err := ioutil.ReadAll(body)
+	require.NoError(t, err)
+
+	var gottenUser ResponseContainer
+	err = json.Unmarshal(data, &gottenUser)
+
+	fmt.Println(gottenUser)
+
+	require.NoError(t, err)
+	require.Equal(t, gottenUser.Data.Email, account.Email)
+	require.Equal(t, gottenUser.Data.FullName, account.FullName)
+	require.Equal(t, gottenUser.Data.Username, account.Username)
 }
