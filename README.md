@@ -190,4 +190,6 @@ Day 23: Hashing password with bcrypt. Created util functions to hash and compare
 
 Day 24: Added API for create and get user. Tweaked response to not return hashed password.
 
-Day 25: Used a custom gomock matcher to make sure we pass the arguments with the right values to the endpoint
+Day 25: Used a custom gomock matcher to make sure we pass the arguments with the right values to the endpoint.
+
+Day 26: We learnt about how Paseto is better than JWT for authentication.

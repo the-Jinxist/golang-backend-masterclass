@@ -7,7 +7,9 @@ import (
 	"database/sql"
 	"log"
 
+	_ "github.com/golang-jwt/jwt/v4"
 	_ "github.com/golang/mock/mockgen/model"
+	_ "github.com/google/uuid"
 	_ "github.com/lib/pq"
 )
 
