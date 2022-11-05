@@ -10,11 +10,10 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Thu Nov  3 16:48:17 2022
+# Make data base, printed on Sat Nov  5 08:44:05 2022
 
 # Variables
 
- 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
@@ -76,7 +75,7 @@ HOME = /Users/neo
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/neo/Library/Application Support/Code/CachedData/d045a5eda657f4d7b676dedbfa7aab8207f8a075
+VSCODE_CODE_CACHE_PATH = /Users/neo/Library/Application Support/Code/CachedData/8fa188b2b301d36553cbc9ce1b0a146ccb93351f
 # environment
 LOGNAME = neo
 # environment
@@ -110,7 +109,7 @@ TMPDIR = /var/folders/8q/mqws9vgd7wlgj8vp4s29shq40000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/neo/Library/Application Support/Code/1.72.2-main.sock
+VSCODE_IPC_HOOK = /Users/neo/Library/Application Support/Code/1.73.0-main.sock
 # environment
 MallocNanoZone = 0
 # makefile
@@ -122,7 +121,7 @@ MFLAGS = -Rrqp
 # environment
 NVM_DIR = /Users/neo/.nvm
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.74377889.74377895
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.78921936.78921942
 # environment
 HOMEBREW_PREFIX = /opt/homebrew
 # automatic
@@ -152,7 +151,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 1129
+VSCODE_PID = 47149
 # variable set hash-table stats:
 # Load=69/1024=7%, Rehash=0, Collisions=2/93=2%
 
@@ -162,9 +161,10 @@ VSCODE_PID = 1129
 
 # Directories
 
-# . (device 16777231, inode 56922006): 23 files, no impossibilities.
+# . (device 16777231, inode 56922006): 24 files, no impossibilities.
 
-# 23 files, no impossibilities in 1 directories.
+ 
+# 24 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -186,7 +186,6 @@ all:
 #  Command-line target.
 #  Implicit rule search has been done.
 #  File does not exist.
- 
 #  File has not been updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
@@ -334,6 +333,6 @@ mock:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Thu Nov  3 16:48:17 2022
+# Finished Make data base on Sat Nov  5 08:44:05 2022
 
  
