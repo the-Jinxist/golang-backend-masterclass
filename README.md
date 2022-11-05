@@ -194,4 +194,6 @@ Day 25: Used a custom gomock matcher to make sure we pass the arguments with the
 
 Day 26: We learnt about how Paseto is better than JWT for authentication.
 
-Day 27: Created the JWT maker file. This file implements our abstract token creator interface
+Day 27: Created the JWT maker file. This file implements our abstract token creator interface.
+
+Day 28: Learned how to verify tokens with JWT and Paseto. Wrote test to account for the way each implementation works
