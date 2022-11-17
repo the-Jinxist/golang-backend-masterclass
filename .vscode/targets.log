@@ -10,11 +10,12 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Sat Nov  5 08:44:05 2022
+# Make data base, printed on Thu Nov 17 20:58:03 2022
 
 # Variables
 
 # automatic
+ 
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
@@ -75,7 +76,7 @@ HOME = /Users/neo
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/neo/Library/Application Support/Code/CachedData/8fa188b2b301d36553cbc9ce1b0a146ccb93351f
+VSCODE_CODE_CACHE_PATH = /Users/neo/Library/Application Support/Code/CachedData/6261075646f055b99068d3688932416f2346dd3b
 # environment
 LOGNAME = neo
 # environment
@@ -109,7 +110,7 @@ TMPDIR = /var/folders/8q/mqws9vgd7wlgj8vp4s29shq40000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/neo/Library/Application Support/Code/1.73.0-main.sock
+VSCODE_IPC_HOOK = /Users/neo/Library/Application Support/Code/1.73.1-main.sock
 # environment
 MallocNanoZone = 0
 # makefile
@@ -151,7 +152,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 47149
+VSCODE_PID = 51339
 # variable set hash-table stats:
 # Load=69/1024=7%, Rehash=0, Collisions=2/93=2%
 
@@ -163,7 +164,6 @@ VSCODE_PID = 47149
 
 # . (device 16777231, inode 56922006): 24 files, no impossibilities.
 
- 
 # 24 files, no impossibilities in 1 directories.
 
 # Implicit Rules
@@ -181,6 +181,7 @@ postgres:
 	docker run --name postgres-learning1 -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres
 	
 
+ 
 # Not a target:
 all:
 #  Command-line target.
@@ -333,6 +334,6 @@ mock:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sat Nov  5 08:44:05 2022
+# Finished Make data base on Thu Nov 17 20:58:03 2022
 
  

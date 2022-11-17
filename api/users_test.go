@@ -174,7 +174,7 @@ func TestCreateUserApi(t *testing.T) {
 			store := mockdb.NewMockStore(controller)
 			testCase.buildStubs(store)
 
-			server := NewServer(store)
+			server := NewTestServer(t, store)
 			recorder := httptest.NewRecorder()
 
 			// Marshal body data to JSON
@@ -210,8 +210,8 @@ func createRandomUser() (user db.Users, password string) {
 }
 
 type ResponseContainer struct {
-	Status string             `json:"status"`
-	Data   CreateUserResponse `json:"data"`
+	Status string       `json:"status"`
+	Data   UserResponse `json:"data"`
 }
 
 func requireBodyMatchUser(t *testing.T, body *bytes.Buffer, account db.Users) {

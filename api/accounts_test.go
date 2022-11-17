@@ -36,7 +36,7 @@ func TestGetAccountAPI(t *testing.T) {
 		Times(1).
 		Return(account, nil)
 
-	server := NewServer(store)
+	server := NewTestServer(t, store)
 	recorder := httptest.NewRecorder()
 
 	url := fmt.Sprintf("/account/%d", account.ID)
@@ -138,7 +138,7 @@ func TestGetAccountAPIWithMultipleTestCases(t *testing.T) {
 			store := mockdb.NewMockStore(controller)
 			testCase.buildStubs(store)
 
-			server := NewServer(store)
+			server := NewTestServer(t, store)
 			recorder := httptest.NewRecorder()
 
 			url := fmt.Sprintf("/account/%d", testCase.accountID)
