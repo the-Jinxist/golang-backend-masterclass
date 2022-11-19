@@ -47,12 +47,18 @@ func (server *Server) serveRouter() {
 
 	router.POST("/accounts", server.createAccount)
 	router.POST("/users/login", server.loginUser)
-	router.GET("/account/:id", server.getAccount)
-	router.GET("/accounts", server.listAccounts)
-	router.POST("/transfers", server.transferMoney)
 
-	router.GET("/user", server.getUser)
-	router.POST("/user", server.createUser)
+	//The above routes /accounts and /users/login don't need any authorization, so we create the endpoints that need
+	//an authorization token after registering those endpoints
+
+	authGroups := router.Group("/", authMiddleWare(server.tokenMaker))
+
+	authGroups.GET("/account/:id", server.getAccount)
+	authGroups.GET("/accounts", server.listAccounts)
+	authGroups.POST("/transfers", server.transferMoney)
+
+	authGroups.GET("/user", server.getUser)
+	authGroups.POST("/user", server.createUser)
 
 	server.router = router
 }
