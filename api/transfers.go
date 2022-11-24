@@ -2,7 +2,9 @@ package api
 
 import (
 	db "backend_masterclass/db/sqlc"
+	"backend_masterclass/token"
 	"database/sql"
+	"errors"
 	"fmt"
 	"net/http"
 
@@ -26,8 +28,15 @@ func (server *Server) transferMoney(ctx *gin.Context) {
 		return
 	}
 
-	fromAccountIsValid := server.validateTransferCurrency(ctx, request.FromAccountId, request.Currency)
-	toAccountIsValid := server.validateTransferCurrency(ctx, request.ToAccountId, request.Currency)
+	fromAccount, fromAccountIsValid := server.validateTransferCurrency(ctx, request.FromAccountId, request.Currency)
+	_, toAccountIsValid := server.validateTransferCurrency(ctx, request.ToAccountId, request.Currency)
+
+	authPayload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
+	if authPayload.Username != fromAccount.Owner {
+		err := errors.New("users can only send money from their own accounts")
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
 
 	if !fromAccountIsValid || !toAccountIsValid {
 		return
@@ -52,17 +61,17 @@ func (server *Server) transferMoney(ctx *gin.Context) {
 
 }
 
-func (server *Server) validateTransferCurrency(ctx *gin.Context, accountId int64, currency string) bool {
+func (server *Server) validateTransferCurrency(ctx *gin.Context, accountId int64, currency string) (db.Accounts, bool) {
 	account, err := server.store.GetAccount(ctx, accountId)
 	if err != nil {
 
 		if err == sql.ErrNoRows {
 			ctx.JSON(http.StatusNotFound, errorResponse(err))
-			return false
+			return account, false
 		}
 
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
-		return false
+		return account, false
 	}
 
 	if account.Currency != currency {
@@ -72,8 +81,8 @@ func (server *Server) validateTransferCurrency(ctx *gin.Context, accountId int64
 			"data":   errorResponse(err),
 		})
 
-		return false
+		return account, false
 	}
 
-	return true
+	return account, true
 }

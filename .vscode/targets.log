@@ -6,11 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
-make: *** No rule to make target `all'.  Stop.
 
-
-# Make data base, printed on Sat Nov 19 09:42:36 2022
+# Make data base, printed on Thu Nov 24 11:44:10 2022
 
 # Variables
 
@@ -63,7 +60,6 @@ GOBIN = /Users/neo/go/bin
 # environment
 PWD = /Users/neo/go/src/backend-masterclass
 # environment
- 
 HOMEBREW_CELLAR = /opt/homebrew/Cellar
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
@@ -152,9 +148,8 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 51339
+VSCODE_PID = 21903
 # variable set hash-table stats:
- 
 # Load=69/1024=7%, Rehash=0, Collisions=2/93=2%
 
 # Pattern-specific Variable Values
@@ -163,14 +158,11 @@ VSCODE_PID = 51339
 
 # Directories
 
- 
 # . (device 16777231, inode 56922006): 24 files, no impossibilities.
 
- 
 # 24 files, no impossibilities in 1 directories.
 
 # Implicit Rules
- 
 
 # No implicit rules.
 
@@ -307,6 +299,9 @@ migrateup1:
 	
 
 migratedown:
+ 
+make: *** No rule to make target `all'.  Stop.
+
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
@@ -337,6 +332,6 @@ mock:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sat Nov 19 09:42:36 2022
+# Finished Make data base on Thu Nov 24 11:44:10 2022
 
  
