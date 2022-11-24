@@ -202,3 +202,5 @@ Day 29: Created a new endpoint for login. Applied and interchanged between Paset
 
 Day 30: Added Auth Middle ware to routes registration and also added implementation for adding and checking token to the header for each request. Wrote tests for checking the implementation for the 
 auth middleware and somehow understood more the flow of testing http requests using recorder and the http package
+
+Day 31: Adding authorization rules to database endpoints
