@@ -47,6 +47,7 @@ func (server *Server) serveRouter() {
 
 	router.POST("/accounts", server.createAccount)
 	router.POST("/users/login", server.loginUser)
+	router.POST("/user", server.createUser)
 
 	//The above routes /accounts and /users/login don't need any authorization, so we create the endpoints that need
 	//an authorization token after registering those endpoints
@@ -58,7 +59,6 @@ func (server *Server) serveRouter() {
 	authGroups.POST("/transfers", server.transferMoney)
 
 	authGroups.GET("/user", server.getUser)
-	authGroups.POST("/user", server.createUser)
 
 	server.router = router
 }

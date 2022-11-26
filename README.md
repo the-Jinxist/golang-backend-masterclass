@@ -204,3 +204,5 @@ Day 30: Added Auth Middle ware to routes registration and also added implementat
 auth middleware and somehow understood more the flow of testing http requests using recorder and the http package
 
 Day 31: Adding authorization rules to database endpoints
+
+Day 32: Added authorization test changes to the transfers and account test files

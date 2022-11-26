@@ -28,17 +28,20 @@ func (server *Server) transferMoney(ctx *gin.Context) {
 		return
 	}
 
-	fromAccount, fromAccountIsValid := server.validateTransferCurrency(ctx, request.FromAccountId, request.Currency)
-	_, toAccountIsValid := server.validateTransferCurrency(ctx, request.ToAccountId, request.Currency)
+	fromAccount, fromAccountIsValid := server.validAccount(ctx, request.FromAccountId, request.Currency)
+	if !fromAccountIsValid {
+		return
+	}
+	_, toAccountIsValid := server.validAccount(ctx, request.ToAccountId, request.Currency)
+
+	if !toAccountIsValid {
+		return
+	}
 
 	authPayload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
 	if authPayload.Username != fromAccount.Owner {
 		err := errors.New("users can only send money from their own accounts")
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
-		return
-	}
-
-	if !fromAccountIsValid || !toAccountIsValid {
 		return
 	}
 
@@ -54,14 +57,14 @@ func (server *Server) transferMoney(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusCreated, gin.H{
+	ctx.JSON(http.StatusOK, gin.H{
 		"status": "success",
 		"data":   result,
 	})
 
 }
 
-func (server *Server) validateTransferCurrency(ctx *gin.Context, accountId int64, currency string) (db.Accounts, bool) {
+func (server *Server) validAccount(ctx *gin.Context, accountId int64, currency string) (db.Accounts, bool) {
 	account, err := server.store.GetAccount(ctx, accountId)
 	if err != nil {
 
@@ -75,7 +78,7 @@ func (server *Server) validateTransferCurrency(ctx *gin.Context, accountId int64
 	}
 
 	if account.Currency != currency {
-		err := fmt.Errorf("account [%d] currency mismatch: %s vs %s", accountId, account.Currency, currency)
+		err := fmt.Errorf("account [%d] currency mismatch: %s vs %s. account username: %s", accountId, account.Currency, currency, account.Owner)
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"status": "failure",
 			"data":   errorResponse(err),

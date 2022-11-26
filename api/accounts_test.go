@@ -3,6 +3,7 @@ package api
 import (
 	mockdb "backend_masterclass/db/mock"
 	db "backend_masterclass/db/sqlc"
+	"backend_masterclass/token"
 	"backend_masterclass/util"
 	"bytes"
 	"database/sql"
@@ -12,6 +13,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
@@ -20,7 +22,8 @@ import (
 func TestGetAccountAPI(t *testing.T) {
 
 	//Creating a random account
-	account := randomAccount()
+	user, _ := createRandomUser()
+	account := randomAccount(user.Username)
 
 	//The controller watches out if the calls that are supposed to be made are made
 	controller := gomock.NewController(t)
@@ -43,6 +46,8 @@ func TestGetAccountAPI(t *testing.T) {
 	request, err := http.NewRequest(http.MethodGet, url, nil)
 	require.NoError(t, err)
 
+	addAuthorization(t, request, server.tokenMaker, authorizationTypeBearer, user.Username, time.Minute)
+
 	server.router.ServeHTTP(recorder, request)
 
 	//Here we are checking response
@@ -55,11 +60,13 @@ func TestGetAccountAPI(t *testing.T) {
 
 //This method uses an array of test cases so we can cover every possible scenario with the api.
 func TestGetAccountAPIWithMultipleTestCases(t *testing.T) {
-	account := randomAccount()
+	user, _ := createRandomUser()
+	account := randomAccount(user.Username)
 
 	testCases := []struct {
 		name          string
 		accountID     int64
+		setupAuth     func(t *testing.T, request *http.Request, tokenMaker token.Maker)
 		buildStubs    func(store *mockdb.MockStore)
 		checkResponse func(t *testing.T, recorder *httptest.ResponseRecorder)
 	}{
@@ -71,6 +78,9 @@ func TestGetAccountAPIWithMultipleTestCases(t *testing.T) {
 					GetAccount(gomock.Any(), gomock.Eq(account.ID)).
 					Times(1).
 					Return(account, nil)
+			},
+			setupAuth: func(t *testing.T, request *http.Request, tokenMaker token.Maker) {
+				addAuthorization(t, request, tokenMaker, authorizationTypeBearer, user.Username, time.Minute)
 			},
 			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusCreated, recorder.Code)
@@ -90,8 +100,28 @@ func TestGetAccountAPIWithMultipleTestCases(t *testing.T) {
 					Times(1).
 					Return(db.Accounts{}, sql.ErrNoRows)
 			},
+			setupAuth: func(t *testing.T, request *http.Request, tokenMaker token.Maker) {
+				addAuthorization(t, request, tokenMaker, authorizationTypeBearer, user.Username, time.Minute)
+			},
 			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusNotFound, recorder.Code)
+
+			},
+		},
+
+		//In this unauthorized scenario
+		{
+			name:      "UnAuthorized",
+			accountID: account.ID,
+			buildStubs: func(store *mockdb.MockStore) {
+				store.EXPECT().
+					GetAccount(gomock.Any(), gomock.Eq(account.ID)).
+					Times(0)
+			},
+			setupAuth: func(t *testing.T, request *http.Request, tokenMaker token.Maker) {
+			},
+			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
+				require.Equal(t, http.StatusUnauthorized, recorder.Code)
 
 			},
 		},
@@ -105,6 +135,9 @@ func TestGetAccountAPIWithMultipleTestCases(t *testing.T) {
 					GetAccount(gomock.Any(), gomock.Eq(account.ID)).
 					Times(1).
 					Return(db.Accounts{}, sql.ErrConnDone)
+			},
+			setupAuth: func(t *testing.T, request *http.Request, tokenMaker token.Maker) {
+				addAuthorization(t, request, tokenMaker, authorizationTypeBearer, user.Username, time.Minute)
 			},
 			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusInternalServerError, recorder.Code)
@@ -120,6 +153,9 @@ func TestGetAccountAPIWithMultipleTestCases(t *testing.T) {
 				store.EXPECT().
 					GetAccount(gomock.Any(), gomock.Any()).
 					Times(0)
+			},
+			setupAuth: func(t *testing.T, request *http.Request, tokenMaker token.Maker) {
+				addAuthorization(t, request, tokenMaker, authorizationTypeBearer, user.Username, time.Minute)
 			},
 			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusBadRequest, recorder.Code)
@@ -143,6 +179,9 @@ func TestGetAccountAPIWithMultipleTestCases(t *testing.T) {
 
 			url := fmt.Sprintf("/account/%d", testCase.accountID)
 			request, err := http.NewRequest(http.MethodGet, url, nil)
+
+			testCase.setupAuth(t, request, server.tokenMaker)
+
 			require.NoError(t, err)
 
 			server.router.ServeHTTP(recorder, request)
@@ -153,10 +192,11 @@ func TestGetAccountAPIWithMultipleTestCases(t *testing.T) {
 	}
 }
 
-func randomAccount() db.Accounts {
+func randomAccount(owner string) db.Accounts {
+
 	return db.Accounts{
 		ID:       util.RandomInt(1, 1000),
-		Owner:    util.RandomOwner(),
+		Owner:    owner,
 		Balance:  util.RandomMoney(),
 		Currency: util.RandomCurrency(),
 	}
