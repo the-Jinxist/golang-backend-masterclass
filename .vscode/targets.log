@@ -7,7 +7,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 
 # This program built for i386-apple-darwin11.3.0
 
-# Make data base, printed on Sat Nov 26 09:03:13 2022
+# Make data base, printed on Sat Nov 26 22:31:48 2022
 
 # Variables
 
@@ -42,7 +42,7 @@ VSCODE_CWD = /
 # environment
 GOPROXY = https://proxy.golang.org,direct
 # environment
-PATH = /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Library/Apple/usr/bin:/Users/neo/FlutterDev/flutter/bin:/Users/neo/go:/Users/neo/go/bin:/Users/neo/go/bin/protoc-gen-go:/Users/neo/go/bin/protoc-gen-go-grpc:/Users/neo/Library/Android/sdk/tools:/Users/neo/Library/Android/sdk/platform-tools:/Users/neo/.pub-cache/bin
+PATH = /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Library/Apple/usr/bin:/Users/neo/FlutterDev/flutter/bin:/Users/neo/go:/Users/neo/go/bin:/Users/neo/go/bin/protoc-gen-go:/Users/neo/go/bin/protoc-gen-go-grpc:/Users/neo/Library/Android/sdk/tools:/Users/neo/Library/Android/sdk/platform-tools:/Users/neo/.pub-cache/bin
 # environment
 GOPATH = /Users/neo/go
 # environment
@@ -52,7 +52,7 @@ ANDROID_HOME = /Users/neo/Library/Android/sdk
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.zlMKTjXKhu/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.y2qxCHnlBP/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -118,7 +118,7 @@ MFLAGS = -Rrqp
 # environment
 NVM_DIR = /Users/neo/.nvm
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.78921936.78921942
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.80294336.80294342
 # environment
 HOMEBREW_PREFIX = /opt/homebrew
 # automatic
@@ -148,7 +148,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 25269
+VSCODE_PID = 5960
 # variable set hash-table stats:
 # Load=69/1024=7%, Rehash=0, Collisions=2/93=2%
 
@@ -158,9 +158,9 @@ VSCODE_PID = 25269
 
 # Directories
 
-# . (device 16777231, inode 56922006): 24 files, no impossibilities.
+# . (device 16777231, inode 56922006): 25 files, no impossibilities.
 
-# 24 files, no impossibilities in 1 directories.
+# 25 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -295,13 +295,13 @@ migrateup1:
 #  File does not exist.
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 14):
+ 
+make: *** No rule to make target `all'.  Stop.
+
 	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up 1
 	
 
 migratedown:
- 
-make: *** No rule to make target `all'.  Stop.
-
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
@@ -332,6 +332,6 @@ mock:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sat Nov 26 09:03:13 2022
+# Finished Make data base on Sat Nov 26 22:31:48 2022
 
  

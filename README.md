@@ -208,4 +208,4 @@ Day 31: Adding authorization rules to database endpoints
 Day 32: Added authorization test changes to the transfers and account test files. Started working on pushing a release version into the wild.
         Using a multistage docker image file to make this happen.
 
-        We called `docker build -t simplebank:latest`
+        We called `docker build -t simplebank:latest .`
