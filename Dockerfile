@@ -21,6 +21,7 @@ WORKDIR /app
 
 #Copying the executable file from the build stage
 COPY --from=build_stage /app/main .
+COPY app.env .
 
 #This specifies the port that the application will be listening on
 EXPOSE 8080

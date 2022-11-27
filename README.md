@@ -207,5 +207,13 @@ Day 31: Adding authorization rules to database endpoints
 
 Day 32: Added authorization test changes to the transfers and account test files. Started working on pushing a release version into the wild.
         Using a multistage docker image file to make this happen.
-
         We called `docker build -t simplebank:latest .`
+
+Day 33: Learning how to connect two stand-alone container. 
+    1. First method was finding a way to manually connect these containers using the IP address of the other container. This IP address could be foubd
+    using the `docker container inspect <container-id or image name>`
+    2. Second method, the preferrable one was the Network method. Creating a network in which both containers would be connected
+    Networks can be created using `docker network create <network-name>`
+    The we add containers to a network using `docker network connect <network-name> <container-name or container id>`
+    The we ran the image for the new simple bank project we created using the multistage on the same network using the following complicated command: 
+        `docker run --name simplebank --network bank-network -p 8080:8080 -e GIN_MODE=release -e DB_SOURCE="postgresql://root:secret@postgres-learning1:5432/simple_bank?sslmode=disable" simplebank:latest`
