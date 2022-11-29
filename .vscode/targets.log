@@ -10,12 +10,12 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Sun Nov 27 22:31:10 2022
+# Make data base, printed on Tue Nov 29 14:34:13 2022
 
 # Variables
 
-# automatic
  
+# automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
@@ -102,6 +102,7 @@ USER = neo
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # default
+ 
 MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
 # default
 .VARIABLES := 
@@ -125,7 +126,6 @@ NVM_DIR = /Users/neo/.nvm
 XPC_SERVICE_NAME = application.com.microsoft.VSCode.80294336.80294342
 # environment
 HOMEBREW_PREFIX = /opt/homebrew
- 
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -173,6 +173,7 @@ VSCODE_PID = 1515
 
 # Files
 
+ 
 postgres:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
@@ -208,7 +209,6 @@ migratedown1:
 sqlc:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
- 
 #  File does not exist.
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 26):
@@ -335,6 +335,6 @@ mock:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sun Nov 27 22:31:10 2022
+# Finished Make data base on Tue Nov 29 14:34:13 2022
 
  

@@ -217,3 +217,6 @@ Day 33: Learning how to connect two stand-alone container.
     The we add containers to a network using `docker network connect <network-name> <container-name or container id>`
     The we ran the image for the new simple bank project we created using the multistage on the same network using the following complicated command: 
         `docker run --name simplebank --network bank-network -p 8080:8080 -e GIN_MODE=release -e DB_SOURCE="postgresql://root:secret@postgres-learning1:5432/simple_bank?sslmode=disable" simplebank:latest`
+
+Day 34: Learning how to write a docker-compose file and define a startup flow for services. To run the docker compose file, use. `docker compose up`. Created a `startup.sh` file. We ran `chmod +x start.sh` to change the mode of the file to an executable. We used #!bin/sh to run the startup.sh file because we're using alpine12, as the bash shell is not available
+

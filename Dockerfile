@@ -11,6 +11,9 @@ WORKDIR /app
 #This copy command copies all the golang files into the working directory
 COPY . .
 
+#This RUN command downloads the migrate tool so we can call migrate up to create the tables for the database
+RUN  curl -L https://github.com/golang-migrate/migrate/releases/download/v4.12.2/migrate.linux-amd64.tar.gz | tar xvz
+
 #This RUN command runs the command in front of it, building an executable file
 RUN go build -o main main.go
 
@@ -21,7 +24,9 @@ WORKDIR /app
 
 #Copying the executable file from the build stage
 COPY --from=build_stage /app/main .
+COPY --from=build_stage /app/migrate.linux-amd64 ./migrate
 COPY app.env .
+COPY db/migration ./migration
 
 #This specifies the port that the application will be listening on
 EXPOSE 8080
