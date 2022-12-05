@@ -10,11 +10,10 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Tue Nov 29 14:34:13 2022
+# Make data base, printed on Mon Dec  5 07:56:39 2022
 
 # Variables
 
- 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
@@ -56,7 +55,7 @@ ANDROID_HOME = /Users/neo/Library/Android/sdk
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.UsooNagycF/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.Mzd4BeySwj/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -102,7 +101,6 @@ USER = neo
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # default
- 
 MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
 # default
 .VARIABLES := 
@@ -153,7 +151,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 1515
+VSCODE_PID = 1213
 # variable set hash-table stats:
 # Load=69/1024=7%, Rehash=0, Collisions=2/93=2%
 
@@ -163,9 +161,9 @@ VSCODE_PID = 1515
 
 # Directories
 
-# . (device 16777231, inode 56922006): 25 files, no impossibilities.
+# . (device 16777232, inode 56922006): 27 files, no impossibilities.
 
-# 25 files, no impossibilities in 1 directories.
+# 27 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -173,7 +171,6 @@ VSCODE_PID = 1515
 
 # Files
 
- 
 postgres:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
@@ -310,6 +307,7 @@ migratedown:
 #  File does not exist.
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 17):
+ 
 	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down
 	
 
@@ -335,6 +333,6 @@ mock:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Tue Nov 29 14:34:13 2022
+# Finished Make data base on Mon Dec  5 07:56:39 2022
 
  
