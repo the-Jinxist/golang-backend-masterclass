@@ -16,7 +16,7 @@ jobs:
 
     #The actions here were gotten from the Amazon ECR Login Page on Github Actions. Here: https://github.com/marketplace/actions/amazon-ecr-login-action-for-github-actions
     - name: Checkout repo
-        uses: actions/checkout@v3
+      uses: actions/checkout@v3
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1 # More information on this action can be found below in the 'AWS Credentials' section
