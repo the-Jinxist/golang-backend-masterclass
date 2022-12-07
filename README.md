@@ -217,3 +217,12 @@ Day 33: Learning how to connect two stand-alone container.
     The we add containers to a network using `docker network connect <network-name> <container-name or container id>`
     The we ran the image for the new simple bank project we created using the multistage on the same network using the following complicated command: 
         `docker run --name simplebank --network bank-network -p 8080:8080 -e GIN_MODE=release -e DB_SOURCE="postgresql://root:secret@postgres-learning1:5432/simple_bank?sslmode=disable" simplebank:latest`
+
+Day 34: Learning how to write a docker-compose file and define a startup flow for services. To run the docker compose file, use. `docker compose up`. Created a `startup.sh` file. We ran `chmod +x start.sh` to change the mode of the file to an executable. We used #!bin/sh to run the startup.sh file because we're using alpine12, as the bash shell is not available.
+
+Dy 35: We are working on running migrations after the postgres container is created. To do this, we learn't about the wait-for sh file. Not to make .sh files executable run `chmod +x [sh-file-name].sh`
+
+Day 36: We've created a free-tier AWS account and I connected my payday account to it. Worked like a charm. We decided that the flow to deploy our containers to production via AWS will be done when we push to main, so we used it in a github action. We found github actions for using AWS ECR, such as logging in and adding the credentials. at https://github.com/marketplace/actions/amazon-ecr-login-action-for-github-actions. We decided to create an IAM user to safegaurd our root user credentials. We'll use this IAM user's credential to make the necessary pushes and pulls needed.
+
+We used the Secrets section on the left-hand side in the Github Repo tab to add environment variables to our actions. Apparently, there are two types of secrets, Environment Secrets for branches like staging, main, e.tc. and Repository secrets for the entire repository
+

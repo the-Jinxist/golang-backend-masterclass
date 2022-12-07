@@ -1,0 +1,36 @@
+#This specifies the version of the docker compose file
+version: "3.9"
+services:
+  #This corresponds to a list of services we want to launch/
+  #We're using the postgres database
+  postgres:
+    #Built-in image for postgres database
+    image: postgres:12-alpine
+
+    #Environment variables we want to use
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=simple_bank
+  #The API service
+  api: 
+    #For this service we should build the image in our Dockerfile for the golang source
+    build: 
+      #This means build the image in the context of the current root folder
+      context: .
+      #This tells docker compose where to build the image. Here, it's just the docker file at the root of the project
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_SOURCE=postgresql://root:secret@postgres:5432/simple_bank?sslmode=disable
+    # We have to tell docker compose to wait for the postgres database to be ready before it runs the migrate script. We used the `depends_on` 
+    # command for that
+    depends_on:
+      - postgres
+    # We're overriding the default entrypoint file, so that tit will wait for the postgres service to be ready before trying to start the api service/
+    # the host and port to wait for are postgres:5432, then it runs start.sh file
+
+    #Using the entrypoint command also removes the CMD commands in the Dockerfile
+    entrypoint: ["/app/wait-for.sh", "postgres:5432", "--", "/app/start.sh"]
+    command: ["/app/main"]
