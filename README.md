@@ -222,3 +222,7 @@ Day 34: Learning how to write a docker-compose file and define a startup flow fo
 
 Dy 35: We are working on running migrations after the postgres container is created. To do this, we learn't about the wait-for sh file. Not to make .sh files executable run `chmod +x [sh-file-name].sh`
 
+Day 36: We've created a free-tier AWS account and I connected my payday account to it. Worked like a charm. We decided that the flow to deploy our containers to production via AWS will be done when we push to main, so we used it in a github action. We found github actions for using AWS ECR, such as logging in and adding the credentials. at https://github.com/marketplace/actions/amazon-ecr-login-action-for-github-actions. We decided to create an IAM user to safegaurd our root user credentials. We'll use this IAM user's credential to make the necessary pushes and pulls needed.
+
+We used the Secrets section on the left-hand side in the Github Repo tab to add environment variables to our actions. Apparently, there are two types of secrets, Environment Secrets for branches like staging, main, e.tc. and Repository secrets for the entire repository
+
