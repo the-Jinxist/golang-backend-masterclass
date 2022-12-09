@@ -10,11 +10,12 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Wed Dec  7 08:26:21 2022
+# Make data base, printed on Fri Dec  9 11:32:07 2022
 
 # Variables
 
 # automatic
+ 
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
@@ -35,11 +36,15 @@ _ = /usr/bin/make
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
 INFOPATH = /opt/homebrew/share/info:
 # environment
 VSCODE_CWD = /
+# environment
+GOPROXY = https://proxy.golang.org,direct
 # environment
 PATH = /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Library/Apple/usr/bin:/Users/neo/FlutterDev/flutter/bin:/Users/neo/go:/Users/neo/go/bin:/Users/neo/go/bin/protoc-gen-go:/Users/neo/go/bin/protoc-gen-go-grpc:/Users/neo/Library/Android/sdk/tools:/Users/neo/Library/Android/sdk/platform-tools:/Users/neo/.pub-cache/bin
 # environment
@@ -51,7 +56,7 @@ ANDROID_HOME = /Users/neo/Library/Android/sdk
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.Mzd4BeySwj/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.kXdwpcewVr/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -65,7 +70,7 @@ ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
 MANPATH = /opt/homebrew/share/man::
 # environment
-VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+GOMODCACHE = /Users/neo/go/pkg/mod
 # environment
 HOME = /Users/neo
 # default
@@ -114,6 +119,7 @@ MAKEFLAGS = Rrqp
 MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
+ 
 # environment
 NVM_DIR = /Users/neo/.nvm
 # environment
@@ -147,9 +153,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 53851
+VSCODE_PID = 707
 # variable set hash-table stats:
-# Load=67/1024=7%, Rehash=0, Collisions=1/91=1%
+# Load=69/1024=7%, Rehash=0, Collisions=2/93=2%
 
 # Pattern-specific Variable Values
 
@@ -157,7 +163,7 @@ VSCODE_PID = 53851
 
 # Directories
 
-# . (device 16777232, inode 56922006): 28 files, no impossibilities.
+# . (device 16777234, inode 56922006): 28 files, no impossibilities.
 
 # 28 files, no impossibilities in 1 directories.
 
@@ -194,6 +200,7 @@ migratedown1:
 	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down 1
 	
 
+ 
 .PHONY: postgres createdb dropdb migrateup migratedown migrateup1 migratedown1 sqlc test mysql server mock
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -307,7 +314,6 @@ migratedown:
 	
 
 mock:
- 
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
@@ -329,6 +335,6 @@ mock:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Wed Dec  7 08:26:21 2022
+# Finished Make data base on Fri Dec  9 11:32:07 2022
 
  
