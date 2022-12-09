@@ -7,6 +7,9 @@ createdb:
 drobdb:
 	docker exec it postgres-learning1 dropdb simple_bank
 
+migrateuprds:
+	migrate -path db/migration -database "postgresql://root:ufWuwSPmJPnyBNQPieXS@simplebank1.cd3dseywmjx4.eu-west-2.rds.amazonaws.com:5432/simple_bank" -verbose up
+
 migrateup:
 	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up
 
