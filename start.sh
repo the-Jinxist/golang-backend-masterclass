@@ -5,6 +5,7 @@ set -e
 
 # The first step is to run db migration
 echo "run db migration"
+source /app/app.env
 /app/migrate -path /app/migration -database "$DB_SOURCE" -verbose up
 
 # Here, we start the app
