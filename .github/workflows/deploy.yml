@@ -14,7 +14,7 @@ jobs:
 
     steps:
 
-    #The actions here were gotten from the Amazon ECR Login Page on Github Actions. Here: https://github.com/marketplace/actions/amazon-ecr-login-action-for-github-actions
+    # The actions here were gotten from the Amazon ECR Login Page on Github Actions. Here: https://github.com/marketplace/actions/amazon-ecr-login-action-for-github-actions
     - name: Checkout repo
       uses: actions/checkout@v3
 
@@ -28,6 +28,10 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
+    
+    # We don't have to setup jq because it is already available in the ubuntu image. Same goes for AWS CLI because it is already setup in the previous workflow
+    - name: Load secrets and save to app.env
+      run: aws secretsmanager get-secret-value --secret-id simplebank --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' > app.env
 
     - name: Build, tag, and push docker image to Amazon ECR
       env:

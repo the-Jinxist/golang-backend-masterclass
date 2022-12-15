@@ -3,6 +3,7 @@ module backend_masterclass
 go 1.17
 
 require (
+	github.com/aead/chacha20poly1305 v0.0.0-20201124145622-1a5aba2a8b29
 	github.com/gin-gonic/gin v1.8.1
 	github.com/go-playground/validator/v10 v10.11.1
 	github.com/golang-jwt/jwt/v4 v4.4.2
@@ -17,7 +18,6 @@ require (
 
 require (
 	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da // indirect
-	github.com/aead/chacha20poly1305 v0.0.0-20201124145622-1a5aba2a8b29 // indirect
 	github.com/aead/poly1305 v0.0.0-20180717145839-3fee0db0b635 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
