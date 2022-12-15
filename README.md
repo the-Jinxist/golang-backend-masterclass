@@ -250,5 +250,5 @@ We now added this super command to our github deploy workflow. So the code that 
 
 We tried to pull the newly-created image on our ECR but we don't have the necessary credentials so we turned to the command to get a login password for AWS's ECR `aws ecr get-login-password`. In order to make it work with the docker, we piped in the password, using the command as follows: `aws ecr get-login-password | docker login --username AWS --password-stdin [url of private repository without the final part i.e remove the repository name:id]`. After the login succeeds, we then pull the production image to local. using `docker pull [full private repo link]`.
 
-So we tried running our newly-pulled local image and we had an error because our environment variables was empty. In order to rectify this, we ran `source app.env`. This command loaded all the values from our app.env file. We added this command into the start.sh file so it gets executes during startup
+So we tried running our newly-pulled local image and we had an error because our environment variables was empty. In order to rectify this, we ran `source app.env`. This command loaded all the values from our app.env file. We added this command into the start.sh file so it gets executes during startup.
 
