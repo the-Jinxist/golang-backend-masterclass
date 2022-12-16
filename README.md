@@ -252,3 +252,10 @@ We tried to pull the newly-created image on our ECR but we don't have the necess
 
 So we tried running our newly-pulled local image and we had an error because our environment variables was empty. In order to rectify this, we ran `source app.env`. This command loaded all the values from our app.env file. We added this command into the start.sh file so it gets executes during startup.
 
+Day 37: We're learning about AWS EKS and Kubernetes. K8 is a container orchestration engine for automating scaling, deployment and management of containerized applications. K8 Components are made up of a 
+- Worker Node: Which always has a kubelet agent that makes sure all the containers in each k8 pods are working fine. It also has a kube-proxy which maintains network communication in the Worker node and in between k8 pods.
+- The Control Plane: This runs on the master node. It's responsibility is to manage the worker nodes and pods of the cluster. The control plane consists of:
+    - The API server, which is the front end of the control plane. It exposes K8 API to interact with all other components of the cluster. The persistence store etcd, which acts as K8's backing store
+    for all cluster data. The scheduler which watches for newly created Pods with no assigned nodes and selectes the nodes for them to run on. The controller manager, which is a combination of several controllers such as node controller, job controller, endpoint controller, service account and token controllers, cloud controller manager components.
+We mobved on the AWS Console. Went to EKS part and started work on creating a cluster. We created a service role that has permission to use the EKS cluster.
+
