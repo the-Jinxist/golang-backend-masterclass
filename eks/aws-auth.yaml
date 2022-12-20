@@ -1,9 +1,16 @@
+#Documentation of this yaml file can be found: https://aws.amazon.com/premiumsupport/knowledge-center/amazon-eks-cluster-access/
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: aws-auth
   namespace: kube-system
 data:
+  mapRoles: |
+    - rolearn: arn:aws:iam::017023772841:role/AWSEKSNodeRole
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
   mapUsers: |
     - userarn: arn:aws:iam::017023772841:user/github-ci
       username: github-ci

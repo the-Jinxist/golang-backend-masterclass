@@ -1,0 +1,41 @@
+# Version of the k8 api we're using to create this deployment object
+apiVersion: apps/v1
+
+# The kind of object
+kind: Deployment
+
+# We can specify some metadata about the object here
+metadata:
+  name: simplebank-api-deployment
+
+  # Labels are key-values pairs used to specify subsets of the object
+  labels:
+    app: simple-bank-api
+  
+# Main specification of the deployment object
+spec:
+  # Number of pods with the same template, We just need 1 for now
+  replicas: 1
+
+  # Pod selector, a rule that defines how the deployment can find which pods to manage.
+  selector:
+
+    # I guess this selector rule finds pods by finding labels that match the one you inputted
+    matchLabels:
+      app: simple-bank-api
+
+  # Obviously the pod template, we just need to add the same labels, it seems
+  template:
+    metadata:
+      labels:
+        app: simple-bank-api
+    
+    # The spec pof the pod/ This is where we tell the deployment how to deploy our containers
+    spec:
+      containers:
+      - name: simple-bank-api
+
+        # This is the url of the latest image deployed in EC2
+        image: 017023772841.dkr.ecr.eu-west-2.amazonaws.com/simplebank:2f6db6139fa905e4cb26c30c5b55bac684ac263f
+        ports:
+        - containerPort: 8080

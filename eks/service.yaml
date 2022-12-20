@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+
+# Speicifies information about this service
+metadata:
+  name: simble-bank-api-service
+spec:
+  selector:
+    app: simple-bank-api
+  ports:
+    - protocol: TCP
+      port: 80
+      # The port of the container. Where requests will be sent to.
+      targetPort: 8080
+  #In order for the service to be accessible in the outside world, we need to specify the type of the service
+  type: LoadBalancer
+  
