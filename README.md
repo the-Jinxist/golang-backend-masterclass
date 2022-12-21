@@ -266,3 +266,5 @@ We're woking on using kubectl to run k8 commands in AWS clusters? We added the k
 To tell AWS cli to use the github credentials, we use the coommand `export AWS_PROFILE=github`, for default use "default" instead of "github". We created a new profile when we edited the credentials for the AWS config. We added an aws-auth.yaml file to update the users that are allowed to access the EKS. We are now learning about using K9s to work with kubernetes. We took a tour of the k9s library and it's UI to help us work with EKS clusters.
 
 We also worked with deploying using deployment.yaml and service.yaml.
+
+Day 39: We're working with the AWS service Route53 to buy a new domain name to host our backend application with. I couldn't buy a domain from Route53 So we couldn't get a cool domain name for our backend service and setup TLS for HTTPS support. I skipped that and moved to the automation of deploying all the k8 services when we push.

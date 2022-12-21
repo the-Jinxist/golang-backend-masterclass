@@ -36,6 +36,6 @@ spec:
       - name: simple-bank-api
 
         # This is the url of the latest image deployed in EC2
-        image: 017023772841.dkr.ecr.eu-west-2.amazonaws.com/simplebank:2f6db6139fa905e4cb26c30c5b55bac684ac263f
+        image: 017023772841.dkr.ecr.eu-west-2.amazonaws.com/simplebank:latest
         ports:
         - containerPort: 8080

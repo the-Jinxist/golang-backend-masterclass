@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  build:
+  deploy:
     name: Build Image
     runs-on: ubuntu-latest
 
@@ -17,6 +17,13 @@ jobs:
     # The actions here were gotten from the Amazon ECR Login Page on Github Actions. Here: https://github.com/marketplace/actions/amazon-ecr-login-action-for-github-actions
     - name: Checkout repo
       uses: actions/checkout@v3
+
+    # We added the kubectl github actions
+    - name: Install kubectl
+    - uses: azure/setup-kubectl@v3
+      with:
+        version: 'v1.26.0' # default is latest stable
+      id: install
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1 # More information on this action can be found below in the 'AWS Credentials' section
@@ -39,5 +46,12 @@ jobs:
         REPOSITORY: simplebank
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
-        docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+        docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -t latest .
+        docker push -a $REGISTRY/$REPOSITORY
+    
+    # Here we're making sure our changes are deployed to AWS EKS
+    - name: Deploy image to Amazon EKS
+      run: | 
+        kubectl apply -f eks/aws-auth.yaml
+        kubectl apply -f eks/deployment.yaml
+        kubectl apply -f eks/service.yaml
