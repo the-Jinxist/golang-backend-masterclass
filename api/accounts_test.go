@@ -22,7 +22,7 @@ import (
 func TestGetAccountAPI(t *testing.T) {
 
 	//Creating a random account
-	user, _ := createRandomUser()
+	user, _ := createRandomUser(t)
 	account := randomAccount(user.Username)
 
 	//The controller watches out if the calls that are supposed to be made are made
@@ -60,7 +60,7 @@ func TestGetAccountAPI(t *testing.T) {
 
 //This method uses an array of test cases so we can cover every possible scenario with the api.
 func TestGetAccountAPIWithMultipleTestCases(t *testing.T) {
-	user, _ := createRandomUser()
+	user, _ := createRandomUser(t)
 	account := randomAccount(user.Username)
 
 	testCases := []struct {

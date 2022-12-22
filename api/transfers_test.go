@@ -21,9 +21,9 @@ import (
 
 func TestTransferMoney(t *testing.T) {
 
-	user1, _ := createRandomUser()
-	user2, _ := createRandomUser()
-	user3, _ := createRandomUser()
+	user1, _ := createRandomUser(t)
+	user2, _ := createRandomUser(t)
+	user3, _ := createRandomUser(t)
 
 	amount := int64(10)
 

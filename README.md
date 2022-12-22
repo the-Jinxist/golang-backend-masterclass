@@ -267,4 +267,6 @@ To tell AWS cli to use the github credentials, we use the coommand `export AWS_P
 
 We also worked with deploying using deployment.yaml and service.yaml.
 
-Day 39: We're working with the AWS service Route53 to buy a new domain name to host our backend application with. I couldn't buy a domain from Route53 So we couldn't get a cool domain name for our backend service and setup TLS for HTTPS support. I skipped that and moved to the automation of deploying all the k8 services when we push.
+Day 39: We're working with the AWS service Route53 to buy a new domain name to host our backend application with. I couldn't buy a domain from Route53 So we couldn't get a cool domain name for our backend service and setup TLS for HTTPS support. I skipped that and moved to the automation of deploying all the k8 services when we push. Came to the unofficial end of the course, moving on to advanced topics; GRPC sha. First thing, we're working on is the ability to refresh token.
+
+Day 40: Added refresh token functionality to API.

@@ -48,6 +48,7 @@ func (server *Server) serveRouter() {
 	router.POST("/accounts", server.createAccount)
 	router.POST("/users/login", server.loginUser)
 	router.POST("/user", server.createUser)
+	router.POST("/token/renew_access", server.renewAccessToken)
 
 	//The above routes /accounts and /users/login don't need any authorization, so we create the endpoints that need
 	//an authorization token after registering those endpoints

@@ -11,11 +11,12 @@ import (
 
 //We're storing our three environmental variables
 type Config struct {
-	DBDriver            string        `mapstructure:"DB_DRIVER"`
-	DBSource            string        `mapstructure:"DB_SOURCE"`
-	ServerAddress       string        `mapstructure:"SERVER_ADDRESS"`
-	TokenSymmetricKey   string        `mapstructure:"TOKEN_SYMMETRIC_KEY"`
-	AccessTokenDuration time.Duration `mapstructure:"ACCESS_TOKEN_DURATION"`
+	DBDriver             string        `mapstructure:"DB_DRIVER"`
+	DBSource             string        `mapstructure:"DB_SOURCE"`
+	ServerAddress        string        `mapstructure:"SERVER_ADDRESS"`
+	TokenSymmetricKey    string        `mapstructure:"TOKEN_SYMMETRIC_KEY"`
+	AccessTokenDuration  time.Duration `mapstructure:"ACCESS_TOKEN_DURATION"`
+	RefreshTokenDuration time.Duration `mapstructure:"REFRESH_TOKEN_DURATION"`
 }
 
 //This function will load environmental variables from file or environmental variables
