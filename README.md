@@ -270,3 +270,7 @@ We also worked with deploying using deployment.yaml and service.yaml.
 Day 39: We're working with the AWS service Route53 to buy a new domain name to host our backend application with. I couldn't buy a domain from Route53 So we couldn't get a cool domain name for our backend service and setup TLS for HTTPS support. I skipped that and moved to the automation of deploying all the k8 services when we push. Came to the unofficial end of the course, moving on to advanced topics; GRPC sha. First thing, we're working on is the ability to refresh token.
 
 Day 40: Added refresh token functionality to API.
+
+Day 41: We're learning about using generating documentation for our databases using the dbdocs api in https://dbdocs.io/?utm_source=dbdiagram. We created a doc folder, and copied the dbml value we used to generate our SQL code using dbdiagrams.io, a milienia ago. To generate the documentation just follow the steps outlined here; https://dbdocs.io/docs.
+
+We also looked at how to generate SQL from DBML gotten from dbdiagrams.io using it's cli tool here: https://www.dbml.org/home/#command-line-tool-cli, https://www.dbml.org/cli/
