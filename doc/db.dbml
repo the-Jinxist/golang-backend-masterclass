@@ -1,0 +1,58 @@
+Project SimpleBank {
+  database_type: 'PostgreSQL'
+  Note: '''
+    # Simple Bank Database
+  '''
+}
+
+Table "users" as U {
+  username varchar [pk]
+  hashed_password varchar [not null]
+  full_name varchar [not null]
+  email varchar [not null, unique]
+  password_changed_at timestamptz [not null, default: '0001-01-01 00:00:00+00']
+  created_at timestamptz [not null, default: `now`]
+}
+
+Table accounts as A {
+  id bigserial [pk] //bigserial means 64 bit id. pk means this field is the primary key for this Table
+  owner varchar [not null, ref: > U.username]
+  balance bigint [not null]
+  currency varchar [not null]
+  created_at timestamptz [not null, default: `now`]//timestamptz contains timezone information too
+
+  //It seems indexes are used to like register ways in which a table can be searched
+
+  //We also use the index to set constraints, in this case, we made sure that users can only have accounts with unique currency
+  //i.e one user can have two accounts with currencies USD and EUR respectively. Not two USD accounts
+  Indexes {
+    owner
+    (owner, currency) [unique]
+  }
+  
+}
+
+Table entries as E {
+  id bigserial [pk]
+  account_id bigserial [ref: > A.id]
+  amount bigint [not null, note: 'can be negative or positive']
+  created_at timestamptz [not null, default: `now`]
+  
+  Indexes {
+    account_id
+  }
+}
+
+Table transfers as T {
+  id bigserial [pk]
+  from_account bigserial [ref: > A.id]
+  to_account bigserial [ref: > A.id]
+  amout bigint [not null, note: 'can only be positive']
+  created_at timestamptz [not null, default: `now`]
+  
+  Indexes {
+    from_account
+    to_account
+    (from_account, to_account)
+  }
+}
