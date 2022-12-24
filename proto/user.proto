@@ -1,0 +1,20 @@
+//We're defining the syntax for the protobuf file
+syntax = "proto3";
+
+//Defining the package. This is mainly used to group proto files together
+package pb;
+
+//data time google.protobuf.Timestamp exists here
+import "google/protobuf/timestamp.proto";
+
+//This defines the output folder in which all generated files will be put.
+option go_package = "backend_masterclass/pb";
+
+//We re-defining the User struct in protobuf format. supported data types and other info can be found here: https://developers.google.com/protocol-buffers/docs/proto3
+message User {
+    string username = 1;
+    string fullname = 2;
+    string email = 3;
+    google.protobuf.Timestamp password_changed_at = 4;
+    google.protobuf.Timestamp created_at = 5;
+}

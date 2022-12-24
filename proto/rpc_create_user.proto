@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package pb;
+
+import "user.proto";
+
+option go_package = "backend_masterclass/pb";
+
+//This object must contain the request from the user to create a user
+message CreateUserRequest {
+    string username = 1;
+    string fullname = 2;
+    string email = 3;
+    string password = 4;
+}
+
+message CreateUserResponse {
+    User user = 1;
+}

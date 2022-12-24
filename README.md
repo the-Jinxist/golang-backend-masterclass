@@ -274,3 +274,7 @@ Day 40: Added refresh token functionality to API.
 Day 41: We're learning about using generating documentation for our databases using the dbdocs api in https://dbdocs.io/?utm_source=dbdiagram. We created a doc folder, and copied the dbml value we used to generate our SQL code using dbdiagrams.io, a milienia ago. To generate the documentation just follow the steps outlined here; https://dbdocs.io/docs.
 
 We also looked at how to generate SQL from DBML gotten from dbdiagrams.io using it's cli tool here: https://www.dbml.org/home/#command-line-tool-cli, https://www.dbml.org/cli/
+
+Day 42: We started work on GRPC. Watched a theory video on grpc. Then we moved on the writing the proto files for the two services we were redefining in GRPC. These services are create user and login user. So we first defined the "model" for the requests and responses for both services in the files `rpc_create_user.proto`, `rpc_login_user.proto`. Then we wrote the proto file for the definition of both services in `service_simple_bank.proto`.
+
+After doing all these, we move on the generating the golang files from these proto files. The command to generate the golang files can be found here: https://grpc.io/docs/languages/go/basics/. We copied it and put it into our makefile. We also edited parts of the command to reflect our own use.
