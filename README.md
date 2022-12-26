@@ -280,3 +280,5 @@ Day 42: We started work on GRPC. Watched a theory video on grpc. Then we moved o
 After doing all these, we move on the generating the golang files from these proto files. The command to generate the golang files can be found here: https://grpc.io/docs/languages/go/basics/. We copied it and put it into our makefile. We also edited parts of the command to reflect our own use.
 
 Day 43: For some reason, thought the gRPC server wasn't running sigh. Idiot!. Testing the grpc server using a cli tool found here: https://github.com/ktr0731/evans. Evans is cli client that enables us to construct and send grpc requests in an interactive window.
+
+Day 44: Finished the implementation of the gRPC API for the login and create user api
