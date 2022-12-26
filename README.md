@@ -278,3 +278,5 @@ We also looked at how to generate SQL from DBML gotten from dbdiagrams.io using 
 Day 42: We started work on GRPC. Watched a theory video on grpc. Then we moved on the writing the proto files for the two services we were redefining in GRPC. These services are create user and login user. So we first defined the "model" for the requests and responses for both services in the files `rpc_create_user.proto`, `rpc_login_user.proto`. Then we wrote the proto file for the definition of both services in `service_simple_bank.proto`.
 
 After doing all these, we move on the generating the golang files from these proto files. The command to generate the golang files can be found here: https://grpc.io/docs/languages/go/basics/. We copied it and put it into our makefile. We also edited parts of the command to reflect our own use.
+
+Day 43: For some reason, thought the gRPC server wasn't running sigh. Idiot!. Testing the grpc server using a cli tool found here: https://github.com/ktr0731/evans. Evans is cli client that enables us to construct and send grpc requests in an interactive window.
