@@ -2,7 +2,7 @@ package gapi
 
 import (
 	db "backend_masterclass/db/sqlc"
-	"backend_masterclass/pb"
+	pb "backend_masterclass/pb"
 
 	"google.golang.org/protobuf/types/known/timestamppb"
 )

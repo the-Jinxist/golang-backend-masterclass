@@ -16,10 +16,10 @@ func (s *Server) LoginUser(ctx context.Context, request *pb.LoginUserRequest) (*
 	user, err := s.store.GetUser(ctx, request.GetEmail())
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return nil, status.Errorf(codes.NotFound, "user not found")
+			return nil, status.Errorf(codes.NotFound, "user not found: %s", err.Error())
 		}
 
-		return nil, status.Errorf(codes.Internal, "error while finding user")
+		return nil, status.Errorf(codes.Internal, "error while finding user %s", err.Error())
 	}
 
 	err = util.CheckPassword(request.Password, user.HashedPassword)
