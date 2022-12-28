@@ -118,6 +118,10 @@ func runGRPCGatewayServer(config util.Config, store db.Store) {
 	mux := http.NewServeMux()
 	mux.Handle("/", grpcMux)
 
+	//We're creating a file server and serving the front end files we copied into doc/swagger-ui
+	fs := http.FileServer(http.Dir("./doc/swagger-ui"))
+	mux.Handle("/swagger/", http.StripPrefix("/swagger/", fs))
+
 	listener, err := net.Listen("tcp", "0.0.0.0:9090")
 	if err != nil {
 		log.Fatalf("Cannot create gateway listener: %s", err.Error())
