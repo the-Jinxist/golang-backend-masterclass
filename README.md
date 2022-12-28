@@ -283,4 +283,4 @@ Day 43: For some reason, thought the gRPC server wasn't running sigh. Idiot!. Te
 
 Day 44: Finished the implementation of the gRPC API for the login and create user api.
 
-Day 45: Working on creating a gRPC gateway so we can serve both HTTP and gRPC requests. We also enabled snake case for the fields in our json response by using marshalling and unmarshalling options.
+Day 45: Working on creating a gRPC gateway so we can serve both HTTP and gRPC requests. We also enabled snake case for the fields in our json response by using marshalling and unmarshalling options. We're moving onto how to use grpc metadata, which is some information about a RPC call. We retrieved some of the info that was missing i.e the clientIP and userAgent from this metadata. The code to do this retrieveing was done in metadata.go
