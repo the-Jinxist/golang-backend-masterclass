@@ -4,14 +4,24 @@ import (
 	db "backend_masterclass/db/sqlc"
 	"backend_masterclass/pb"
 	"backend_masterclass/util"
+	val "backend_masterclass/val"
 	"context"
 
 	"github.com/lib/pq"
+	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
 func (s *Server) CreateUser(ctx context.Context, request *pb.CreateUserRequest) (*pb.CreateUserResponse, error) {
+
+	violations := ValidateCreateUserRequest(request)
+	if len(violations) > 0 {
+		//We're finding an internal way of showing errors with fields by using the `errdetails.BadRequest` struct
+		err := invalidArgumentError(violations)
+		return nil, err
+
+	}
 
 	hashedPassword, err := util.HashPassword(request.GetPassword())
 	if err != nil {
@@ -42,4 +52,26 @@ func (s *Server) CreateUser(ctx context.Context, request *pb.CreateUserRequest) 
 		User: convertUser(user),
 	}
 	return response, nil
+}
+
+func ValidateCreateUserRequest(request *pb.CreateUserRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+
+	if emailErr := val.ValidateEmail(request.GetEmail()); emailErr != nil {
+		violations = append(violations, FieldViolation("email", emailErr))
+	}
+
+	if usernameErr := val.ValidateUserName(request.GetUsername()); usernameErr != nil {
+		violations = append(violations, FieldViolation("username", usernameErr))
+	}
+
+	if passwordErr := val.ValidatePassword(request.GetPassword()); passwordErr != nil {
+		violations = append(violations, FieldViolation("password", passwordErr))
+	}
+
+	if fullnameErr := val.ValidateFullName(request.GetFullname()); fullnameErr != nil {
+		violations = append(violations, FieldViolation("full_name", fullnameErr))
+	}
+
+	return violations
+
 }
