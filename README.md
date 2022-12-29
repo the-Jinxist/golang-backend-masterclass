@@ -274,3 +274,17 @@ Day 40: Added refresh token functionality to API.
 Day 41: We're learning about using generating documentation for our databases using the dbdocs api in https://dbdocs.io/?utm_source=dbdiagram. We created a doc folder, and copied the dbml value we used to generate our SQL code using dbdiagrams.io, a milienia ago. To generate the documentation just follow the steps outlined here; https://dbdocs.io/docs.
 
 We also looked at how to generate SQL from DBML gotten from dbdiagrams.io using it's cli tool here: https://www.dbml.org/home/#command-line-tool-cli, https://www.dbml.org/cli/
+
+Day 42: We started work on GRPC. Watched a theory video on grpc. Then we moved on the writing the proto files for the two services we were redefining in GRPC. These services are create user and login user. So we first defined the "model" for the requests and responses for both services in the files `rpc_create_user.proto`, `rpc_login_user.proto`. Then we wrote the proto file for the definition of both services in `service_simple_bank.proto`.
+
+After doing all these, we move on the generating the golang files from these proto files. The command to generate the golang files can be found here: https://grpc.io/docs/languages/go/basics/. We copied it and put it into our makefile. We also edited parts of the command to reflect our own use.
+
+Day 43: For some reason, thought the gRPC server wasn't running sigh. Idiot!. Testing the grpc server using a cli tool found here: https://github.com/ktr0731/evans. Evans is cli client that enables us to construct and send grpc requests in an interactive window.
+
+Day 44: Finished the implementation of the gRPC API for the login and create user api.
+
+Day 45: Working on creating a gRPC gateway so we can serve both HTTP and gRPC requests. We also enabled snake case for the fields in our json response by using marshalling and unmarshalling options. We're moving onto how to use grpc metadata, which is some information about a RPC call. We retrieved some of the info that was missing i.e the clientIP and userAgent from this metadata. The code to do this retrieveing was done in metadata.go
+
+We moved on to generating swagger documentation using the already installed `protoc-gen-openapiv2` we installed in the tools.go file. We updated the protc command in our makefile, to generate documentation whenever we run that command. The commands were `--openapiv2_out doc/swagger \ && --openapiv2_opt logtostderr=true \`. It first separate documentation for each of our proto files, but we added an allow_merge=true option that made it generate into one file. After generating the one json file, we can upload it into swagger to generate our documentation. We looked at ways to generate more info about our service and contacts, to automatically apply them to the documentation.
+
+Because Swagger is WAAAAAY too expensive for us, we decided to try another solution called swagger-ui. We cloned the swagger-ui repo https://github.com/swagger-api/swagger-ui, copied all the files in the dist folder into doc/swagger-ui. We created a file server using all the copied files, and this is completely free because we are serving it ourselves

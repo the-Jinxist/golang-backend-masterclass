@@ -10,12 +10,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Fri Dec 16 11:07:00 2022
+# Make data base, printed on Thu Dec 29 08:45:15 2022
 
 # Variables
 
 # automatic
- 
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
@@ -26,6 +25,7 @@ make: *** No rule to make target `all'.  Stop.
 # automatic
 @F = $(notdir $@)
 # makefile
+ 
 CURDIR := /Users/neo/go/src/backend-masterclass
 # makefile
 SHELL = /bin/sh
@@ -56,7 +56,7 @@ ANDROID_HOME = /Users/neo/Library/Android/sdk
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.JXmMaKZtHI/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.XnUSb5hmHJ/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -76,7 +76,7 @@ HOME = /Users/neo
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/neo/Library/Application Support/Code/CachedData/5235c6bb189b60b01b1f49062f4ffa42384f8c91
+VSCODE_CODE_CACHE_PATH = /Users/neo/Library/Application Support/Code/CachedData/e8a3071ea4344d9d48ef8a4df2c097372b0c5161
 # environment
 LOGNAME = neo
 # environment
@@ -99,6 +99,8 @@ MAKE_VERSION := 3.81
 USER = neo
 # makefile
 .DEFAULT_GOAL := postgres
+# makefile (from `Makefile', line 1)
+DB_URL = postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # default
@@ -110,7 +112,7 @@ TMPDIR = /var/folders/8q/mqws9vgd7wlgj8vp4s29shq40000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/neo/Library/Application Support/Code/1.74.0-main.sock
+VSCODE_IPC_HOOK = /Users/neo/Library/Application Support/Code/1.74.2-main.sock
 # environment
 MallocNanoZone = 0
 # makefile
@@ -123,7 +125,6 @@ MFLAGS = -Rrqp
 NVM_DIR = /Users/neo/.nvm
 # environment
 XPC_SERVICE_NAME = application.com.microsoft.VSCode.82912426.82912432
- 
 # environment
 HOMEBREW_PREFIX = /opt/homebrew
 # automatic
@@ -153,9 +154,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 1833
+VSCODE_PID = 869
 # variable set hash-table stats:
-# Load=69/1024=7%, Rehash=0, Collisions=2/93=2%
+# Load=70/1024=7%, Rehash=0, Collisions=2/94=2%
 
 # Pattern-specific Variable Values
 
@@ -163,9 +164,9 @@ VSCODE_PID = 1833
 
 # Directories
 
-# . (device 16777233, inode 56922006): 28 files, no impossibilities.
+# . (device 16777232, inode 56922006): 36 files, no impossibilities.
 
-# 28 files, no impossibilities in 1 directories.
+# 36 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -178,7 +179,7 @@ postgres:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 2):
+#  commands to execute (from `Makefile', line 3):
 	docker run --name postgres-learning1 -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres
 	
 
@@ -196,11 +197,11 @@ migratedown1:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 23):
-	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down 1
+#  commands to execute (from `Makefile', line 24):
+	migrate -path db/migration -database "$(DB_URL)" -verbose down 1
 	
 
-.PHONY: postgres createdb dropdb migrateup migratedown migrateup1 migratedown1 sqlc test mysql server mock
+.PHONY: postgres createdb dropdb migrateup migratedown migrateup1 migratedown1 sqlc test mysql server mock db_docs db_schema proto evans
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -210,8 +211,7 @@ sqlc:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
- 
-#  commands to execute (from `Makefile', line 29):
+#  commands to execute (from `Makefile', line 30):
 	sqlc generate
 	
 
@@ -224,7 +224,7 @@ sqlc:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-09 15:06:55
+#  Last modified 2022-12-28 11:22:11
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -235,8 +235,25 @@ server:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 35):
+#  commands to execute (from `Makefile', line 36):
 	go run main.go
+	
+
+proto:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 48):
+	rm -f pb/*.go
+	rm -f doc/swagger/*.json
+	protoc --proto_path=proto --go_out=pb --go_opt=paths=source_relative \
+	--go-grpc_out=pb --go-grpc_opt=paths=source_relative \
+	--grpc-gateway_out=pb \
+	--grpc-gateway_opt paths=source_relative \
+	--openapiv2_out doc/swagger \
+	--openapiv2_opt=logtostderr=true,allow_merge=true,merge_file_name=simple_bank \
+	proto/*.proto
 	
 
 test:
@@ -244,8 +261,17 @@ test:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 32):
+#  commands to execute (from `Makefile', line 33):
 	go test -v -cover ./...
+	
+
+db_schema:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 45):
+	dbml2sql doc/db.dbml -o doc/simple_bank_schema.sql
 	
 
 createdb:
@@ -253,8 +279,17 @@ createdb:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 5):
+#  commands to execute (from `Makefile', line 6):
 	docker exec -it postgres-learning1 createdb --username=root --owner=root simple_bank
+	
+
+evans:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 59):
+	evans --host localhost --port 8080 -r repl
 	
 
 # Not a target:
@@ -262,6 +297,15 @@ createdb:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+
+db_docs:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 42):
+	dbdocs build doc/db.dbml
+	
 
 dropdb:
 #  Phony target (prerequisite of .PHONY).
@@ -274,15 +318,16 @@ migrateup:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 14):
-	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up
+#  commands to execute (from `Makefile', line 15):
+	migrate -path db/migration -database "$(DB_URL)" -verbose up
 	
 
 migrateuprds:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 11):
+ 
+#  commands to execute (from `Makefile', line 12):
 	migrate -path db/migration -database "postgresql://root:ufWuwSPmJPnyBNQPieXS@simplebank1.cd3dseywmjx4.eu-west-2.rds.amazonaws.com:5432/simple_bank" -verbose up
 	
 
@@ -291,7 +336,7 @@ mysql:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 26):
+#  commands to execute (from `Makefile', line 27):
 	docker run --name mysql-learning1 -p 3306:3306 -e MYSQL_DATABASE=simple_bank -e MYSQL_USER=banker -e MYSQL_PASSWORD=secret -e MYSQL_ROOT_PASSWORD=secret -d mysql:5.7
 	
 
@@ -299,7 +344,7 @@ drobdb:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 8):
+#  commands to execute (from `Makefile', line 9):
 	docker exec it postgres-learning1 dropdb simple_bank
 	
 
@@ -308,8 +353,8 @@ migrateup1:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 17):
-	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up 1
+#  commands to execute (from `Makefile', line 18):
+	migrate -path db/migration -database "$(DB_URL)" -verbose up 1
 	
 
 migratedown:
@@ -317,8 +362,8 @@ migratedown:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 20):
-	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down
+#  commands to execute (from `Makefile', line 21):
+	migrate -path db/migration -database "$(DB_URL)" -verbose down
 	
 
 mock:
@@ -326,12 +371,12 @@ mock:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 38):
+#  commands to execute (from `Makefile', line 39):
 	mockgen -package mockdb -destination db/mock/store.go backend_masterclass/db/sqlc Store
 	
 
 # files hash-table stats:
-# Load=19/1024=2%, Rehash=0, Collisions=0/43=0%
+# Load=23/1024=2%, Rehash=0, Collisions=2/51=4%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -343,6 +388,6 @@ mock:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Fri Dec 16 11:07:00 2022
+# Finished Make data base on Thu Dec 29 08:45:15 2022
 
  
