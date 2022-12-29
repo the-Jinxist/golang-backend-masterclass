@@ -18,9 +18,12 @@ import (
 	_ "github.com/google/uuid"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	_ "github.com/lib/pq"
+	"github.com/rakyll/statik/fs"
 	"google.golang.org/grpc"
 	reflection "google.golang.org/grpc/reflection"
 	"google.golang.org/protobuf/encoding/protojson"
+
+	_ "backend_masterclass/doc/statik"
 )
 
 func main() {
@@ -119,8 +122,16 @@ func runGRPCGatewayServer(config util.Config, store db.Store) {
 	mux.Handle("/", grpcMux)
 
 	//We're creating a file server and serving the front end files we copied into doc/swagger-ui
-	fs := http.FileServer(http.Dir("./doc/swagger-ui"))
-	mux.Handle("/swagger/", http.StripPrefix("/swagger/", fs))
+	// fs := http.FileServer(http.Dir("./doc/swagger-ui"))
+
+	//We decided to use the statik library to serve our static front-end files inside our golang binary
+	statikFS, err := fs.New()
+	if err != nil {
+		log.Fatalf("Cannot create statik file system: %s", err.Error())
+	}
+
+	swaggerHandler := http.StripPrefix("/swagger/", http.FileServer(statikFS))
+	mux.Handle("/swagger/", swaggerHandler)
 
 	listener, err := net.Listen("tcp", "0.0.0.0:9090")
 	if err != nil {
