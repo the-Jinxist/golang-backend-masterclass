@@ -3,3 +3,4 @@
 .vscode
 /Users/neo/go/src/backend-masterclass/.vscode
 *.env
+/tools/tools.go

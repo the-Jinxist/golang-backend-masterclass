@@ -6,8 +6,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
+ 
+make: *** No rule to make target `all'.  Stop.
 
-# Make data base, printed on Wed Dec 28 09:28:12 2022
+
+# Make data base, printed on Thu Dec 29 08:45:15 2022
 
 # Variables
 
@@ -22,6 +25,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # automatic
 @F = $(notdir $@)
 # makefile
+ 
 CURDIR := /Users/neo/go/src/backend-masterclass
 # makefile
 SHELL = /bin/sh
@@ -52,7 +56,7 @@ ANDROID_HOME = /Users/neo/Library/Android/sdk
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.z6D254Sbku/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.XnUSb5hmHJ/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -150,7 +154,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 4342
+VSCODE_PID = 869
 # variable set hash-table stats:
 # Load=70/1024=7%, Rehash=0, Collisions=2/94=2%
 
@@ -160,7 +164,7 @@ VSCODE_PID = 4342
 
 # Directories
 
-# . (device 16777234, inode 56922006): 36 files, no impossibilities.
+# . (device 16777232, inode 56922006): 36 files, no impossibilities.
 
 # 36 files, no impossibilities in 1 directories.
 
@@ -220,7 +224,7 @@ sqlc:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-27 21:01:48
+#  Last modified 2022-12-28 11:22:11
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -242,10 +246,13 @@ proto:
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 48):
 	rm -f pb/*.go
+	rm -f doc/swagger/*.json
 	protoc --proto_path=proto --go_out=pb --go_opt=paths=source_relative \
 	--go-grpc_out=pb --go-grpc_opt=paths=source_relative \
 	--grpc-gateway_out=pb \
 	--grpc-gateway_opt paths=source_relative \
+	--openapiv2_out doc/swagger \
+	--openapiv2_opt=logtostderr=true,allow_merge=true,merge_file_name=simple_bank \
 	proto/*.proto
 	
 
@@ -281,7 +288,7 @@ evans:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 56):
+#  commands to execute (from `Makefile', line 59):
 	evans --host localhost --port 8080 -r repl
 	
 
@@ -304,9 +311,6 @@ dropdb:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
- 
-make: *** No rule to make target `all'.  Stop.
-
 #  File has not been updated.
 
 migrateup:
@@ -322,6 +326,7 @@ migrateuprds:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+ 
 #  commands to execute (from `Makefile', line 12):
 	migrate -path db/migration -database "postgresql://root:ufWuwSPmJPnyBNQPieXS@simplebank1.cd3dseywmjx4.eu-west-2.rds.amazonaws.com:5432/simple_bank" -verbose up
 	
@@ -383,6 +388,6 @@ mock:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Wed Dec 28 09:28:12 2022
+# Finished Make data base on Thu Dec 29 08:45:15 2022
 
  
