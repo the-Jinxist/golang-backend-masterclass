@@ -29,6 +29,26 @@ type Querier interface {
 	ListAccounts(ctx context.Context, arg ListAccountsParams) ([]Accounts, error)
 	ListEntries(ctx context.Context, arg ListEntriesParams) ([]Entries, error)
 	UpdateAccount(ctx context.Context, arg UpdateAccountParams) (Accounts, error)
+	// This method uses optional parameters with those weird CASE WHEN ELSE parameters
+	// UPDATE users
+	// set
+	//   hashed_password = CASE
+	//     WHEN @set_hashed_password::boolean = TRUE THEN @hashed_password
+	//     ELSE hashed_password
+	//   END,
+	//   full_name = CASE
+	//     WHEN @set_full_name::boolean = TRUE THEN @full_name
+	//     ELSE full_name
+	//   END,
+	//   email = CASE
+	//     WHEN @set_email::boolean = TRUE THEN @email
+	//     ELSE email
+	//   END
+	// WHERE
+	//   username = @username
+	// RETURNING *;
+	// The next method uses nullable paramters method to create the same updateUser method with
+	UpdateUser(ctx context.Context, arg UpdateUserParams) (Users, error)
 }
 
 var _ Querier = (*Queries)(nil)

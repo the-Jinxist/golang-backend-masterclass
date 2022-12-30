@@ -10,12 +10,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Fri Dec 30 07:42:06 2022
+# Make data base, printed on Fri Dec 30 20:36:38 2022
 
 # Variables
 
 # automatic
- 
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
@@ -29,6 +28,7 @@ make: *** No rule to make target `all'.  Stop.
 CURDIR := /Users/neo/go/src/backend-masterclass
 # makefile
 SHELL = /bin/sh
+ 
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupport":true}
 # environment
@@ -36,15 +36,11 @@ _ = /usr/bin/make
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # environment
-VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
-# environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
 INFOPATH = /opt/homebrew/share/info:
 # environment
 VSCODE_CWD = /
-# environment
-GOPROXY = https://proxy.golang.org,direct
 # environment
 PATH = /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Library/Apple/usr/bin:/Users/neo/FlutterDev/flutter/bin:/Users/neo/go:/Users/neo/go/bin:/Users/neo/go/bin/protoc-gen-go:/Users/neo/go/bin/protoc-gen-go-grpc:/Users/neo/Library/Android/sdk/tools:/Users/neo/Library/Android/sdk/platform-tools:/Users/neo/.pub-cache/bin
 # environment
@@ -56,7 +52,7 @@ ANDROID_HOME = /Users/neo/Library/Android/sdk
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.D4RDsdaauo/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.YnVG9gOBr4/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -70,7 +66,7 @@ ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
 MANPATH = /opt/homebrew/share/man::
 # environment
-GOMODCACHE = /Users/neo/go/pkg/mod
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 HOME = /Users/neo
 # default
@@ -128,7 +124,6 @@ XPC_SERVICE_NAME = application.com.microsoft.VSCode.82912426.82912432
 # environment
 HOMEBREW_PREFIX = /opt/homebrew
 # automatic
- 
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
 +F = $(notdir $+)
@@ -155,9 +150,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 1075
+VSCODE_PID = 1016
 # variable set hash-table stats:
-# Load=70/1024=7%, Rehash=0, Collisions=2/94=2%
+# Load=68/1024=7%, Rehash=0, Collisions=1/92=1%
 
 # Pattern-specific Variable Values
 
@@ -165,7 +160,7 @@ VSCODE_PID = 1075
 
 # Directories
 
-# . (device 16777232, inode 56922006): 37 files, no impossibilities.
+# . (device 16777230, inode 56922006): 37 files, no impossibilities.
 
 # 37 files, no impossibilities in 1 directories.
 
@@ -218,7 +213,6 @@ sqlc:
 
 # Not a target:
 .SUFFIXES:
- 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -330,6 +324,7 @@ migrateuprds:
 #  Modification time never checked.
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 12):
+ 
 	migrate -path db/migration -database "postgresql://root:ufWuwSPmJPnyBNQPieXS@simplebank1.cd3dseywmjx4.eu-west-2.rds.amazonaws.com:5432/simple_bank" -verbose up
 	
 
@@ -390,6 +385,6 @@ mock:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Fri Dec 30 07:42:06 2022
+# Finished Make data base on Fri Dec 30 20:36:38 2022
 
  

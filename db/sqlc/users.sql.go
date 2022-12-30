@@ -7,6 +7,7 @@ package backend_masterclass
 
 import (
 	"context"
+	"database/sql"
 )
 
 const createUser = `-- name: CreateUser :one
@@ -51,6 +52,68 @@ WHERE username = $1
 
 func (q *Queries) GetUser(ctx context.Context, username string) (Users, error) {
 	row := q.db.QueryRowContext(ctx, getUser, username)
+	var i Users
+	err := row.Scan(
+		&i.Username,
+		&i.HashedPassword,
+		&i.FullName,
+		&i.Email,
+		&i.PasswordChangedAt,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
+const updateUser = `-- name: UpdateUser :one
+
+
+
+UPDATE users
+SET
+ hashed_password = coalesce($1, hashed_password),
+ full_name = coalesce($2, full_name),
+ email = coalesce($3, email)
+WHERE username = $4
+RETURNING username, hashed_password, full_name, email, password_changed_at, created_at
+`
+
+type UpdateUserParams struct {
+	HashedPassword sql.NullString `json:"hashed_password"`
+	FullName       sql.NullString `json:"full_name"`
+	Email          sql.NullString `json:"email"`
+	Username       string         `json:"username"`
+}
+
+// This method uses optional parameters with those weird CASE WHEN ELSE parameters
+// UPDATE users
+// set
+//
+//	hashed_password = CASE
+//	  WHEN @set_hashed_password::boolean = TRUE THEN @hashed_password
+//	  ELSE hashed_password
+//	END,
+//	full_name = CASE
+//	  WHEN @set_full_name::boolean = TRUE THEN @full_name
+//	  ELSE full_name
+//	END,
+//	email = CASE
+//	  WHEN @set_email::boolean = TRUE THEN @email
+//	  ELSE email
+//	END
+//
+// WHERE
+//
+//	username = @username
+//
+// RETURNING *;
+// The next method uses nullable paramters method to create the same updateUser method with
+func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (Users, error) {
+	row := q.db.QueryRowContext(ctx, updateUser,
+		arg.HashedPassword,
+		arg.FullName,
+		arg.Email,
+		arg.Username,
+	)
 	var i Users
 	err := row.Scan(
 		&i.Username,

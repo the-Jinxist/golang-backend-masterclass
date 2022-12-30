@@ -3,7 +3,7 @@
 
 #The Build Stage
 #This specifies the version of the golang image to use
-FROM golang:1.18.8-alpine3.16 AS build_stage
+FROM golang:1.19.4-alpine3.17 AS build_stage
 
 #The working directory inside the image, we kept it simple, used `/app`
 WORKDIR /app
@@ -23,7 +23,7 @@ RUN go build -o main main.go
 
 
 #The Run State
-FROM alpine:3.16 AS run_stage
+FROM alpine:3.17 AS run_stage
 WORKDIR /app
 
 #Copying the executable file from the build stage
