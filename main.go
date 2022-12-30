@@ -24,6 +24,10 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 
 	_ "backend_masterclass/doc/statik"
+
+	migrate "github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
 func main() {
@@ -38,11 +42,28 @@ func main() {
 		log.Fatal(err.Error())
 	}
 
+	//We will run the DB migrations here
+	runDBMigrations(config.MigrationURL, config.DBSource)
+
 	store := db.NewStore(conn)
 	// runHTTPServer(config, store)
 	go runGRPCGatewayServer(config, store)
 	runGRPCServer(config, store)
 
+}
+
+func runDBMigrations(migrationURL string, dbSourceString string) {
+	migration, err := migrate.New(migrationURL, dbSourceString)
+	if err != nil {
+		log.Fatalf("cannot create new migrate instance: %s", err.Error())
+	}
+
+	err = migration.Up()
+	if err != nil && err != migrate.ErrNoChange {
+		log.Fatalf("cannot run up migrations: %s", err.Error())
+	}
+
+	log.Println("db migrated successfully")
 }
 
 // func runHTTPServer(config util.Config, store db.Store) {

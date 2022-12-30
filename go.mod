@@ -20,9 +20,10 @@ require (
 
 require (
 	github.com/goccy/go-json v0.9.11 // indirect
+	github.com/golang-migrate/migrate/v4 v4.15.2
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.0
 	github.com/mattn/go-isatty v0.0.16 // indirect
-	github.com/rakyll/statik v0.1.7 // indirect
+	github.com/rakyll/statik v0.1.7
 	google.golang.org/genproto v0.0.0-20221207170731-23e4bf6bdc37
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 )

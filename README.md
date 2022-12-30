@@ -290,3 +290,5 @@ We moved on to generating swagger documentation using the already installed `pro
 Because Swagger is WAAAAAY too expensive for us, we decided to try another solution called swagger-ui. We cloned the swagger-ui repo https://github.com/swagger-api/swagger-ui, copied all the files in the dist folder into doc/swagger-ui. We created a file server using all the copied files, and this is completely free because we are serving it ourselves.
 
 Day 46: We're learning about embedding front end files into a Go executable file. We used the library found here: https://github.com/rakyll/statik. Added the command to add the static file as found in the same link earlier.
+
+Day 47: Learning how to run DB migrations directly from inside Golang code.

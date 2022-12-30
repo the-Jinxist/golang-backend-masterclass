@@ -10,11 +10,12 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Thu Dec 29 08:45:15 2022
+# Make data base, printed on Fri Dec 30 07:42:06 2022
 
 # Variables
 
 # automatic
+ 
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
@@ -25,7 +26,6 @@ make: *** No rule to make target `all'.  Stop.
 # automatic
 @F = $(notdir $@)
 # makefile
- 
 CURDIR := /Users/neo/go/src/backend-masterclass
 # makefile
 SHELL = /bin/sh
@@ -56,7 +56,7 @@ ANDROID_HOME = /Users/neo/Library/Android/sdk
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.XnUSb5hmHJ/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.D4RDsdaauo/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -128,6 +128,7 @@ XPC_SERVICE_NAME = application.com.microsoft.VSCode.82912426.82912432
 # environment
 HOMEBREW_PREFIX = /opt/homebrew
 # automatic
+ 
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
 +F = $(notdir $+)
@@ -154,7 +155,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 869
+VSCODE_PID = 1075
 # variable set hash-table stats:
 # Load=70/1024=7%, Rehash=0, Collisions=2/94=2%
 
@@ -164,9 +165,9 @@ VSCODE_PID = 869
 
 # Directories
 
-# . (device 16777232, inode 56922006): 36 files, no impossibilities.
+# . (device 16777232, inode 56922006): 37 files, no impossibilities.
 
-# 36 files, no impossibilities in 1 directories.
+# 37 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -217,6 +218,7 @@ sqlc:
 
 # Not a target:
 .SUFFIXES:
+ 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -224,7 +226,7 @@ sqlc:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-28 11:22:11
+#  Last modified 2022-12-29 09:31:04
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -254,6 +256,7 @@ proto:
 	--openapiv2_out doc/swagger \
 	--openapiv2_opt=logtostderr=true,allow_merge=true,merge_file_name=simple_bank \
 	proto/*.proto
+	statik -src=./doc/swagger-ui -dest=./doc
 	
 
 test:
@@ -288,7 +291,7 @@ evans:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 59):
+#  commands to execute (from `Makefile', line 60):
 	evans --host localhost --port 8080 -r repl
 	
 
@@ -326,7 +329,6 @@ migrateuprds:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
 #  commands to execute (from `Makefile', line 12):
 	migrate -path db/migration -database "postgresql://root:ufWuwSPmJPnyBNQPieXS@simplebank1.cd3dseywmjx4.eu-west-2.rds.amazonaws.com:5432/simple_bank" -verbose up
 	
@@ -388,6 +390,6 @@ mock:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Thu Dec 29 08:45:15 2022
+# Finished Make data base on Fri Dec 30 07:42:06 2022
 
  
