@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package pb;
+
+import "user.proto";
+
+option go_package = "backend_masterclass/pb";
+
+//This object must contain the request from the user to update a user
+
+//We're using the optional keyword to point out the fields that are optional
+message UpdateUserRequest {
+    string username = 1;
+    optional string fullname = 2;
+    optional string email = 3;
+    optional string password = 4;
+}
+
+message UpdateUserResponse {
+    User user = 1;
+}

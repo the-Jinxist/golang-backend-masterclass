@@ -292,3 +292,5 @@ Because Swagger is WAAAAAY too expensive for us, we decided to try another solut
 Day 46: We're learning about embedding front end files into a Go executable file. We used the library found here: https://github.com/rakyll/statik. Added the command to add the static file as found in the same link earlier.
 
 Day 47: Learning how to run DB migrations directly from inside Golang code. We moved on to creating partial update for SQL query. We updated the SQLC queries in users.sql to use CASE and WHEN and other SQL commands that I just don't understand. Thankfully, we moved on to a much better way of doing this. We used nullable parameters. They can be found here: https://docs.sqlc.dev/en/latest/howto/named_parameters.html#nullable-parameters
+
+Day 48: We also transfered this knowledge to gRPC. We're learning how to use optional parameters with gRPC too. It's basically just using the `optional` keyword in our proto file for responses and requests. Note: Please run `make mock` after every `make sqlc` to make sure the mocking is always up to date

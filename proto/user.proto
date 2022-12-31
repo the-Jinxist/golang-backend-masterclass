@@ -1,5 +1,4 @@
-//We're defining the syntax for the protobuf file
-syntax = "proto3";
+syntax = "proto3"; //We're defining the syntax for the protobuf file
 
 //Defining the package. This is mainly used to group proto files together
 package pb;

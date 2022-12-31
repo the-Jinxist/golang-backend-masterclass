@@ -38,6 +38,7 @@ UPDATE users
 SET
  hashed_password = coalesce(sqlc.narg('hashed_password'), hashed_password),
  full_name = coalesce(sqlc.narg('full_name'), full_name),
- email = coalesce(sqlc.narg('email'), email)
+ email = coalesce(sqlc.narg('email'), email),
+ password_changed_at = coalesce(sqlc.narg('password_changed_at'), password_changed_at)
 WHERE username = sqlc.arg('username')
 RETURNING *;

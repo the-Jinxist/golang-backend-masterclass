@@ -72,16 +72,18 @@ UPDATE users
 SET
  hashed_password = coalesce($1, hashed_password),
  full_name = coalesce($2, full_name),
- email = coalesce($3, email)
-WHERE username = $4
+ email = coalesce($3, email),
+ password_changed_at = coalesce($4, password_changed_at)
+WHERE username = $5
 RETURNING username, hashed_password, full_name, email, password_changed_at, created_at
 `
 
 type UpdateUserParams struct {
-	HashedPassword sql.NullString `json:"hashed_password"`
-	FullName       sql.NullString `json:"full_name"`
-	Email          sql.NullString `json:"email"`
-	Username       string         `json:"username"`
+	HashedPassword    sql.NullString `json:"hashed_password"`
+	FullName          sql.NullString `json:"full_name"`
+	Email             sql.NullString `json:"email"`
+	PasswordChangedAt sql.NullTime   `json:"password_changed_at"`
+	Username          string         `json:"username"`
 }
 
 // This method uses optional parameters with those weird CASE WHEN ELSE parameters
@@ -112,6 +114,7 @@ func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (Users, 
 		arg.HashedPassword,
 		arg.FullName,
 		arg.Email,
+		arg.PasswordChangedAt,
 		arg.Username,
 	)
 	var i Users
