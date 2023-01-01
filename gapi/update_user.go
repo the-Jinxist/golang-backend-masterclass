@@ -16,6 +16,15 @@ import (
 
 func (s *Server) UpdateUser(ctx context.Context, request *pb.UpdateUserRequest) (*pb.UpdateUserResponse, error) {
 
+	payload, err := s.authorizeUser(ctx)
+	if err != nil {
+		return nil, unAuthenticatedError(err)
+	}
+
+	if payload.Username != request.Username {
+		return nil, status.Error(codes.PermissionDenied, "cannot update other user's info")
+	}
+
 	violations := ValidateUpdateUserRequest(request)
 	if len(violations) > 0 {
 		//We're finding an internal way of showing errors with fields by using the `errdetails.BadRequest` struct

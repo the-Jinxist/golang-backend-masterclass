@@ -293,4 +293,19 @@ Day 46: We're learning about embedding front end files into a Go executable file
 
 Day 47: Learning how to run DB migrations directly from inside Golang code. We moved on to creating partial update for SQL query. We updated the SQLC queries in users.sql to use CASE and WHEN and other SQL commands that I just don't understand. Thankfully, we moved on to a much better way of doing this. We used nullable parameters. They can be found here: https://docs.sqlc.dev/en/latest/howto/named_parameters.html#nullable-parameters
 
-Day 48: We also transfered this knowledge to gRPC. We're learning how to use optional parameters with gRPC too. It's basically just using the `optional` keyword in our proto file for responses and requests. Note: Please run `make mock` after every `make sqlc` to make sure the mocking is always up to date
+Day 48: We also transfered this knowledge to gRPC. We're learning how to use optional parameters with gRPC too. It's basically just using the `optional` keyword in our proto file for responses and requests. Note: Please run `make mock` after every `make sqlc` to make sure the mocking is always up to date.
+
+Day 49: We continued working on adding authorization to the gRPC update user API. Also, we also checked out adding tests in postman to check if the status code of the request is 200, to parse the response body and set an environmental variable from the parsed body. We wrote a script in the `Test` tab of Postman for this.
+
+```
+    pm.test("Status code is 200", function () {
+        pm.response.to.have.status(200);
+    });
+
+    var jsonData = JSON.parse(responseBody)
+    //jsonData.access_token, the access_token part must match the field's key name, NB!
+    pm.collectionVariables.set("access_token", jsonData.access_token)
+
+```
+
+This created the `access_token` variable for the Backend masterclass collection. To use the variable in the authorization tab, it looked like this: `{{access_token}}`
