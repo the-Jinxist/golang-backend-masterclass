@@ -48,6 +48,8 @@ func (s *Server) CreateUser(ctx context.Context, request *pb.CreateUserRequest) 
 		return nil, status.Errorf(codes.Internal, "failed to create user: %s", err.Error())
 	}
 
+	//We will be using Redis to send the verification email here
+
 	response := &pb.CreateUserResponse{
 		User: convertUser(user),
 	}

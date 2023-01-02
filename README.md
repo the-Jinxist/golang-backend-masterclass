@@ -310,4 +310,6 @@ Day 49: We continued working on adding authorization to the gRPC update user API
 
 This created the `access_token` variable for the Backend masterclass collection. To use the variable in the authorization tab, it looked like this: `{{access_token}}`
 
-Day 50: We're working on writing structured logs for gRPC APIs. We're doing this via the interceptors. Because all our requests are unary, we're using the `UnaryInterceptor()`. In order to write extremely structured logs lol. We're using the package zerolog, found here: https://github.com/rs/zerolog
+Day 50: We're working on writing structured logs for gRPC APIs. We're doing this via the interceptors. Because all our requests are unary, we're using the `UnaryInterceptor()`. In order to write extremely structured logs lol. We're using the package zerolog, found here: https://github.com/rs/zerolog.
+
+We're learning about using Redis to schedule long running work. To work with this, we will be sending a verification email to the user, while the customer is creating a user. To execute this work asynchronously, we will be using the asynq library: https://github.com/hibiken/asynq. We have to define the processor and distributor for each task. The processor is in charge of creating and adding tasks to the queue, the processor is charge of processing🌚 the tasks. We implemented both the processor and distributor in this lecture.
