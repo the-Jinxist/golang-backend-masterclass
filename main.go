@@ -9,9 +9,9 @@ import (
 	"backend_masterclass/util"
 	"context"
 	"database/sql"
-	"log"
 	"net"
 	"net/http"
+	"os"
 
 	_ "github.com/golang-jwt/jwt/v4"
 	_ "github.com/golang/mock/mockgen/model"
@@ -19,6 +19,8 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	_ "github.com/lib/pq"
 	"github.com/rakyll/statik/fs"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
 	reflection "google.golang.org/grpc/reflection"
 	"google.golang.org/protobuf/encoding/protojson"
@@ -34,12 +36,17 @@ func main() {
 
 	config, err := util.LoadConfig(".")
 	if err != nil {
-		log.Fatal("cannot load config: ", err.Error())
+		log.Fatal().Msgf("cannot load config: ")
+	}
+
+	if config.Environment == "development" {
+		//This code enables pretty logging, fancy stuff that I actually like
+		log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 	}
 
 	conn, err := sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
-		log.Fatal(err.Error())
+		log.Fatal().Msg(err.Error())
 	}
 
 	//We will run the DB migrations here
@@ -55,27 +62,27 @@ func main() {
 func runDBMigrations(migrationURL string, dbSourceString string) {
 	migration, err := migrate.New(migrationURL, dbSourceString)
 	if err != nil {
-		log.Fatalf("cannot create new migrate instance: %s", err.Error())
+		log.Fatal().Msgf("cannot create new migrate instance: %s", err.Error())
 	}
 
 	err = migration.Up()
 	if err != nil && err != migrate.ErrNoChange {
-		log.Fatalf("cannot run up migrations: %s", err.Error())
+		log.Fatal().Msgf("cannot run up migrations: %s", err.Error())
 	}
 
-	log.Println("db migrated successfully")
+	log.Info().Msgf("db migrated successfully")
 }
 
 // func runHTTPServer(config util.Config, store db.Store) {
 // 	server, err := api.NewServer(config, store)
 
 // 	if err != nil {
-// 		log.Fatal("Cannot create server")
+// 		log.Fatal().Msg("Cannot create server")
 // 	}
 
 // 	err = server.Start(config.ServerAddress)
 // 	if err != nil {
-// 		log.Fatal("Cannot start server")
+// 		log.Fatal().Msg("Cannot start server")
 // 	}
 // }
 
@@ -83,33 +90,37 @@ func runGRPCServer(config util.Config, store db.Store) {
 
 	server, err := gapi.NewServer(config, store)
 	if err != nil {
-		log.Fatalf("Cannot create server: %s", err.Error())
+		log.Fatal().Msgf("Cannot create server: %s", err.Error())
 	}
 
-	grpcServer := grpc.NewServer()
+	//Here, wer're creating the unary interceptor
+	grpcLogger := grpc.UnaryInterceptor(gapi.GrpcLogger)
+
+	//We're adding the interceptor to the server here, as well as creating a new grpc server
+	grpcServer := grpc.NewServer(grpcLogger)
 
 	reflection.Register(grpcServer)
 	pb.RegisterSimpleBankServer(grpcServer, server)
 
 	listener, err := net.Listen("tcp", config.ServerAddress)
 	if err != nil {
-		log.Fatalf("Cannot create listener: %s", err.Error())
+		log.Fatal().Msgf("Cannot create listener: %s", err.Error())
 	}
 
-	log.Printf("server started at %s", listener.Addr())
+	log.Info().Msgf("server started at %s", listener.Addr())
 	err1 := grpcServer.Serve(listener)
 	if err1 != nil {
-		log.Fatalf("Error occurred while running sever: %s", err1.Error())
+		log.Fatal().Msgf("Error occurred while running sever: %s", err1.Error())
 	}
 
 }
 
-//We're using in-process translation method because createUser and loginUser services are unary operations
+// We're using in-process translation method because createUser and loginUser services are unary operations
 func runGRPCGatewayServer(config util.Config, store db.Store) {
 
 	server, err := gapi.NewServer(config, store)
 	if err != nil {
-		log.Fatalf("Cannot create gateway server: %s", err.Error())
+		log.Fatal().Msgf("Cannot create gateway server: %s", err.Error())
 	}
 
 	//These option code was mainly used to make sure the field names in our json output
@@ -136,7 +147,7 @@ func runGRPCGatewayServer(config util.Config, store db.Store) {
 
 	err = pb.RegisterSimpleBankHandlerServer(ctx, grpcMux, server)
 	if err != nil {
-		log.Fatalf("Cannot register gateway server: %s", err.Error())
+		log.Fatal().Msgf("Cannot register gateway server: %s", err.Error())
 	}
 
 	mux := http.NewServeMux()
@@ -148,7 +159,7 @@ func runGRPCGatewayServer(config util.Config, store db.Store) {
 	//We decided to use the statik library to serve our static front-end files inside our golang binary
 	statikFS, err := fs.New()
 	if err != nil {
-		log.Fatalf("Cannot create statik file system: %s", err.Error())
+		log.Fatal().Msgf("Cannot create statik file system: %s", err.Error())
 	}
 
 	swaggerHandler := http.StripPrefix("/swagger/", http.FileServer(statikFS))
@@ -156,13 +167,13 @@ func runGRPCGatewayServer(config util.Config, store db.Store) {
 
 	listener, err := net.Listen("tcp", "0.0.0.0:9090")
 	if err != nil {
-		log.Fatalf("Cannot create gateway listener: %s", err.Error())
+		log.Fatal().Msgf("Cannot create gateway listener: %s", err.Error())
 	}
 
-	log.Printf("grpcGateway server started at %s", listener.Addr())
+	log.Info().Msgf("grpcGateway server started at %s", listener.Addr())
 	err1 := http.Serve(listener, mux)
 	if err1 != nil {
-		log.Fatalf("Error occurred while running sever: %s", err1.Error())
+		log.Fatal().Msgf("Error occurred while running sever: %s", err1.Error())
 	}
 
 }
