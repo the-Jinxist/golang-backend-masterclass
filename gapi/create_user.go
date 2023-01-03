@@ -5,8 +5,11 @@ import (
 	"backend_masterclass/pb"
 	"backend_masterclass/util"
 	val "backend_masterclass/val"
+	"backend_masterclass/worker"
 	"context"
+	"time"
 
+	"github.com/hibiken/asynq"
 	"github.com/lib/pq"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
@@ -48,7 +51,24 @@ func (s *Server) CreateUser(ctx context.Context, request *pb.CreateUserRequest) 
 		return nil, status.Errorf(codes.Internal, "failed to create user: %s", err.Error())
 	}
 
+	//We're supposed to use a DB transaction to do this two requets
 	//We will be using Redis to send the verification email here
+	taskPayload := &worker.PayloadSendVerifyEmail{
+		Username: user.Username,
+	}
+
+	//Here, we're seeing how to send a golang task to a particular queue and not the default one. When you change the queue, you also have
+	//to tell the task processor to look for tasks in the queue too
+	opts := []asynq.Option{
+		asynq.MaxRetry(10),
+		asynq.ProcessIn(10 * time.Second),
+		asynq.Queue(worker.CriticalQueue),
+	}
+
+	err = s.taskDistrubutor.DistributeTaskSendVerifyEmail(ctx, taskPayload, opts...)
+	if err != nil {
+		return nil, status.Errorf(codes.Internal, "failed to distribute send verify email task: %s", err.Error())
+	}
 
 	response := &pb.CreateUserResponse{
 		User: convertUser(user),

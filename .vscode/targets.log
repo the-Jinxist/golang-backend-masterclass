@@ -6,11 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
-make: *** No rule to make target `all'.  Stop.
 
-
-# Make data base, printed on Mon Jan  2 21:18:36 2023
+# Make data base, printed on Tue Jan  3 08:45:14 2023
 
 # Variables
 
@@ -35,15 +32,11 @@ _ = /usr/bin/make
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # environment
-VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
-# environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
 INFOPATH = /opt/homebrew/share/info:
 # environment
 VSCODE_CWD = /
-# environment
-GOPROXY = https://proxy.golang.org,direct
 # environment
 PATH = /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Library/Apple/usr/bin:/Users/neo/FlutterDev/flutter/bin:/Users/neo/go:/Users/neo/go/bin:/Users/neo/go/bin/protoc-gen-go:/Users/neo/go/bin/protoc-gen-go-grpc:/Users/neo/Library/Android/sdk/tools:/Users/neo/Library/Android/sdk/platform-tools:/Users/neo/.pub-cache/bin
 # environment
@@ -69,7 +62,7 @@ ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
 MANPATH = /opt/homebrew/share/man::
 # environment
-GOMODCACHE = /Users/neo/go/pkg/mod
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 HOME = /Users/neo
 # default
@@ -155,7 +148,7 @@ LANG = C
 # environment
 VSCODE_PID = 1103
 # variable set hash-table stats:
-# Load=70/1024=7%, Rehash=0, Collisions=2/94=2%
+# Load=68/1024=7%, Rehash=0, Collisions=1/92=1%
 
 # Pattern-specific Variable Values
 
@@ -163,9 +156,9 @@ VSCODE_PID = 1103
 
 # Directories
 
-# . (device 16777230, inode 56922006): 37 files, no impossibilities.
+# . (device 16777230, inode 56922006): 38 files, no impossibilities.
 
-# 37 files, no impossibilities in 1 directories.
+# 38 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -182,7 +175,6 @@ postgres:
 	docker run --name postgres-learning1 -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres
 	
 
- 
 # Not a target:
 all:
 #  Command-line target.
@@ -246,7 +238,6 @@ proto:
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 48):
 	rm -f pb/*.go
- 
 	rm -f doc/swagger/*.json
 	protoc --proto_path=proto --go_out=pb --go_opt=paths=source_relative \
 	--go-grpc_out=pb --go-grpc_opt=paths=source_relative \
@@ -311,6 +302,9 @@ db_docs:
 
 dropdb:
 #  Phony target (prerequisite of .PHONY).
+ 
+make: *** No rule to make target `all'.  Stop.
+
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
@@ -325,7 +319,6 @@ migrateup:
 	
 
 migrateuprds:
- 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -390,6 +383,6 @@ mock:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Mon Jan  2 21:18:36 2023
+# Finished Make data base on Tue Jan  3 08:45:14 2023
 
  

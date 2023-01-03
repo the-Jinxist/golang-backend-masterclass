@@ -5,21 +5,23 @@ import (
 	"backend_masterclass/pb"
 	"backend_masterclass/token"
 	"backend_masterclass/util"
+	"backend_masterclass/worker"
 	"fmt"
 )
 
 //This server will serve gRPC requests for our banking service
 
-//We added pb.UnimplementedSimpleBankServer to enable forward compatibility. This means the server can accept calls to CreateUser and LoginUser before they are
-//implemented
+// We added pb.UnimplementedSimpleBankServer to enable forward compatibility. This means the server can accept calls to CreateUser and LoginUser before they are
+// implemented
 type Server struct {
 	pb.UnimplementedSimpleBankServer
-	store      db.Store
-	tokenMaker token.Maker
-	config     util.Config
+	store           db.Store
+	tokenMaker      token.Maker
+	config          util.Config
+	taskDistrubutor worker.TaskDistributor
 }
 
-func NewServer(config util.Config, store db.Store) (*Server, error) {
+func NewServer(config util.Config, store db.Store, taskDistributor worker.TaskDistributor) (*Server, error) {
 
 	tokenMaker, err := token.NewJwtMaker(config.TokenSymmetricKey)
 	if err != nil {
@@ -27,9 +29,10 @@ func NewServer(config util.Config, store db.Store) (*Server, error) {
 	}
 
 	server := &Server{
-		store:      store,
-		config:     config,
-		tokenMaker: tokenMaker,
+		store:           store,
+		config:          config,
+		tokenMaker:      tokenMaker,
+		taskDistrubutor: taskDistributor,
 	}
 
 	return server, nil

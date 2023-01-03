@@ -7,6 +7,7 @@ import (
 	"backend_masterclass/gapi"
 	"backend_masterclass/pb"
 	"backend_masterclass/util"
+	"backend_masterclass/worker"
 	"context"
 	"database/sql"
 	"net"
@@ -17,6 +18,7 @@ import (
 	_ "github.com/golang/mock/mockgen/model"
 	_ "github.com/google/uuid"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"github.com/hibiken/asynq"
 	_ "github.com/lib/pq"
 	"github.com/rakyll/statik/fs"
 	"github.com/rs/zerolog"
@@ -53,10 +55,30 @@ func main() {
 	runDBMigrations(config.MigrationURL, config.DBSource)
 
 	store := db.NewStore(conn)
-	// runHTTPServer(config, store)
-	go runGRPCGatewayServer(config, store)
-	runGRPCServer(config, store)
 
+	//We're trying to communicate with the redis server here
+	redisOpt := asynq.RedisClientOpt{
+		Addr: config.RedisAddress,
+	}
+
+	//We added the task distributor to the grpc server struct so that it would be available to all the APIs
+	taskDistrubutor := worker.NewRedisTaskDistributor(redisOpt)
+
+	// runHTTPServer(config, store)
+	go runTaskProcessor(redisOpt, store)
+	go runGRPCGatewayServer(config, store, taskDistrubutor)
+	runGRPCServer(config, store, taskDistrubutor)
+
+}
+
+func runTaskProcessor(redisOpt asynq.RedisClientOpt, store db.Store) {
+	taskProcessor := worker.NewRedisTaskProcessor(redisOpt, store)
+	log.Info().Msg("start task processor")
+
+	err := taskProcessor.Start()
+	if err != nil {
+		log.Fatal().Err(err).Msgf("failed to start task processor: %s", err.Error())
+	}
 }
 
 func runDBMigrations(migrationURL string, dbSourceString string) {
@@ -86,9 +108,9 @@ func runDBMigrations(migrationURL string, dbSourceString string) {
 // 	}
 // }
 
-func runGRPCServer(config util.Config, store db.Store) {
+func runGRPCServer(config util.Config, store db.Store, taskDistributor worker.TaskDistributor) {
 
-	server, err := gapi.NewServer(config, store)
+	server, err := gapi.NewServer(config, store, taskDistributor)
 	if err != nil {
 		log.Fatal().Msgf("Cannot create server: %s", err.Error())
 	}
@@ -116,9 +138,9 @@ func runGRPCServer(config util.Config, store db.Store) {
 }
 
 // We're using in-process translation method because createUser and loginUser services are unary operations
-func runGRPCGatewayServer(config util.Config, store db.Store) {
+func runGRPCGatewayServer(config util.Config, store db.Store, taskDistributor worker.TaskDistributor) {
 
-	server, err := gapi.NewServer(config, store)
+	server, err := gapi.NewServer(config, store, taskDistributor)
 	if err != nil {
 		log.Fatal().Msgf("Cannot create gateway server: %s", err.Error())
 	}

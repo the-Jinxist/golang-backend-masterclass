@@ -7,6 +7,12 @@ import (
 	"github.com/hibiken/asynq"
 )
 
+const (
+	CriticalQueue       = "critical"
+	DefaultQueue        = "default"
+	CriticalQueryWeight = 2
+)
+
 // This file is supposed to take tasks and assign them to the Redis worker
 type TaskProcessor interface {
 	//It is important, very important to register the task with our processor
@@ -24,7 +30,12 @@ func NewRedisTaskProcessor(redisOpt asynq.RedisClientOpt, store db.Store) TaskPr
 
 	sever := asynq.NewServer(
 		redisOpt,
-		asynq.Config{},
+		asynq.Config{
+			Queues: map[string]int{
+				CriticalQueue: 10,
+				DefaultQueue:  5,
+			},
+		},
 	)
 
 	return &RedisTaskProcessor{
